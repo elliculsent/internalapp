@@ -1,0 +1,1292 @@
+{
+  "version": 1,
+  "projects": {
+    "april-enterprise": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/individual-modular",
+      "sourceRoot": "apps/individual-modular/src",
+      "prefix": "uex",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "outputPath": "dist/apps/april-enterprise",
+            "index": "apps/individual-modular/src/projects/april-enterprise/index.html",
+            "main": "apps/individual-modular/src/main.ts",
+            "polyfills": "apps/individual-modular/src/polyfills.ts",
+            "tsConfig": "apps/individual-modular/tsconfig.app.json",
+            "aot": true,
+            "allowedCommonJsDependencies": [
+              "angular2-text-mask",
+              "lodash"
+            ],
+            "assets": [
+              "apps/individual-modular/src/favicon.ico",
+              "apps/individual-modular/src/assets",
+              "apps/individual-modular/src/projects/april-enterprise/manifest.webmanifest",
+              {
+                "input": "libs/uex-browser-not-supported/src/assets",
+                "glob": "**/*",
+                "output": "assets/uex-browser-not-supported"
+              }
+            ],
+            "customWebpackConfig": {
+              "path": "./custom-webpack.config.js"
+            },
+            "styles": [
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css",
+              "node_modules/cookieconsent/build/cookieconsent.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "apps/individual-modular/src/styles.scss"
+            ],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.js",
+              "./node_modules/intl-tel-input/build/js/intlTelInput.min.js",
+              "./node_modules/cookieconsent/build/cookieconsent.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/individual-modular/src/environments/environment.ts",
+                  "with": "apps/individual-modular/src/environments/april-enterprise/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/individual-modular/ngsw-config.json"
+            },
+            "preproduction": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/individual-modular/src/environments/environment.ts",
+                  "with": "apps/individual-modular/src/environments/april-enterprise/environment.preprod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/individual-modular/ngsw-config.json"
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/individual-modular/src/environments/environment.ts",
+                  "with": "apps/individual-modular/src/environments/april-enterprise/environment.staging.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "11mb",
+                  "maximumError": "11mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "10kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/individual-modular/src/environments/environment.ts",
+                  "with": "apps/individual-modular/src/environments/april-enterprise/environment.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "april-enterprise:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "april-enterprise:build:production"
+            },
+            "staging": {
+              "browserTarget": "april-enterprise:build:staging"
+            },
+            "dev": {
+              "browserTarget": "april-enterprise:build:dev"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "april-enterprise:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/individual-modular/src/**/*.ts",
+              "apps/individual-modular/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/individual-modular/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/apps/individual-modular"
+          ]
+        }
+      }
+    },
+    "april-enterprise-e2e": {
+      "root": "apps/april-enterprise-e2e",
+      "sourceRoot": "apps/april-enterprise-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/april-enterprise-e2e/cypress.json",
+            "tsConfig": "apps/april-enterprise-e2e/tsconfig.e2e.json",
+            "devServerTarget": "april-enterprise:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "april-enterprise:serve:production"
+            },
+            "preproduction": {
+              "devServerTarget": "april-enterprise:serve:preproduction"
+            },
+            "staging": {
+              "devServerTarget": "april-enterprise:serve:staging"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/april-enterprise-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "april-mission": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/individual-modular",
+      "sourceRoot": "apps/individual-modular/src",
+      "prefix": "uex",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "outputPath": "dist/apps/april-mission",
+            "index": "apps/individual-modular/src/projects/april-mission/index.html",
+            "main": "apps/individual-modular/src/main.ts",
+            "polyfills": "apps/individual-modular/src/polyfills.ts",
+            "tsConfig": "apps/individual-modular/tsconfig.app.json",
+            "aot": true,
+            "allowedCommonJsDependencies": [
+              "angular2-text-mask",
+              "lodash"
+            ],
+            "assets": [
+              "apps/individual-modular/src/favicon.ico",
+              "apps/individual-modular/src/assets",
+              "apps/individual-modular/src/projects/april-mission/manifest.webmanifest",
+              {
+                "input": "libs/uex-browser-not-supported/src/assets",
+                "glob": "**/*",
+                "output": "assets/uex-browser-not-supported"
+              }
+            ],
+            "customWebpackConfig": {
+              "path": "./custom-webpack.config.js"
+            },
+            "styles": [
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css",
+              "node_modules/cookieconsent/build/cookieconsent.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "apps/individual-modular/src/styles.scss"
+            ],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.js",
+              "./node_modules/intl-tel-input/build/js/intlTelInput.min.js",
+              "./node_modules/cookieconsent/build/cookieconsent.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/individual-modular/src/environments/environment.ts",
+                  "with": "apps/individual-modular/src/environments/april-mission/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/individual-modular/ngsw-config.json"
+            },
+            "preproduction": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/individual-modular/src/environments/environment.ts",
+                  "with": "apps/individual-modular/src/environments/april-mission/environment.preprod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/individual-modular/ngsw-config.json"
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/individual-modular/src/environments/environment.ts",
+                  "with": "apps/individual-modular/src/environments/april-mission/environment.staging.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "11mb",
+                  "maximumError": "11mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "10kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/individual-modular/src/environments/environment.ts",
+                  "with": "apps/individual-modular/src/environments/april-mission/environment.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "april-mission:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "april-mission:build:production"
+            },
+            "preproduction": {
+              "browserTarget": "april-mission:build:preproduction"
+            },
+            "staging": {
+              "browserTarget": "april-mission:build:staging"
+            },
+            "dev": {
+              "browserTarget": "april-mission:build:dev"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "april-mission:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/individual-modular/src/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/individual-modular/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/apps/individual-modular"
+          ]
+        }
+      }
+    },
+    "april-mission-e2e": {
+      "root": "apps/april-mission-e2e",
+      "sourceRoot": "apps/april-mission-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/april-mission-e2e/cypress.json",
+            "tsConfig": "apps/april-mission-e2e/tsconfig.e2e.json",
+            "devServerTarget": "april-mission:serve"
+          },
+          "configurations": {
+            "dev": {
+              "devServerTarget": "april-mission:serve:dev"
+            },
+            "staging": {
+              "devServerTarget": "april-mission:serve:staging"
+            },
+            "preproduction": {
+              "devServerTarget": "april-mission:serve:preproduction"
+            },
+            "production": {
+              "devServerTarget": "april-mission:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/april-mission-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "uex-website": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/uex-website",
+      "sourceRoot": "apps/uex-website/src",
+      "prefix": "uex",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "outputPath": "dist/apps/uex-website",
+            "index": "apps/uex-website/src/index.html",
+            "main": "apps/uex-website/src/main.ts",
+            "polyfills": "apps/uex-website/src/polyfills.ts",
+            "tsConfig": "apps/uex-website/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/uex-website/src/favicon.ico",
+              "apps/uex-website/src/assets"
+            ],
+            "customWebpackConfig": {
+              "path": "./custom-webpack.config.js"
+            },
+            "styles": [
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "apps/uex-website/src/styles.scss"
+            ],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.js",
+              "./node_modules/intl-tel-input/build/js/intlTelInput.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/uex-website/src/environments/environment.ts",
+                  "with": "apps/uex-website/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "uex-website:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "uex-website:build:production"
+            },
+            "staging": {
+              "browserTarget": "uex-website:build:staging"
+            },
+            "dev": {
+              "browserTarget": "uex-website:build:dev"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "uex-website:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/uex-website/src/**/*.ts",
+              "apps/uex-website/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/uex-website/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/apps/uex-website"
+          ]
+        }
+      }
+    },
+    "uex-website-e2e": {
+      "root": "apps/uex-website-e2e",
+      "sourceRoot": "apps/uex-website-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/uex-website-e2e/cypress.json",
+            "tsConfig": "apps/uex-website-e2e/tsconfig.e2e.json",
+            "devServerTarget": "uex-website:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "uex-website:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/uex-website-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "backoffice": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/backoffice",
+      "sourceRoot": "apps/backoffice/src",
+      "prefix": "uex",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "outputPath": "dist/apps/backoffice",
+            "index": "apps/backoffice/src/index.html",
+            "main": "apps/backoffice/src/main.ts",
+            "polyfills": "apps/backoffice/src/polyfills.ts",
+            "tsConfig": "apps/backoffice/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/backoffice/src/favicon.ico",
+              "apps/backoffice/src/assets"
+            ],
+            "customWebpackConfig": {
+              "path": "./custom-webpack.config.js"
+            },
+            "styles": [
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "apps/backoffice/src/styles.scss"
+            ],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.js",
+              "./node_modules/intl-tel-input/build/js/intlTelInput.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/backoffice/src/environments/environment.ts",
+                  "with": "apps/backoffice/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "backoffice:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "backoffice:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "backoffice:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/backoffice/src/**/*.ts",
+              "apps/backoffice/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/backoffice/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/apps/backoffice"
+          ]
+        }
+      }
+    },
+    "backoffice-e2e": {
+      "root": "apps/backoffice-e2e",
+      "sourceRoot": "apps/backoffice-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/backoffice-e2e/cypress.json",
+            "tsConfig": "apps/backoffice-e2e/tsconfig.e2e.json",
+            "devServerTarget": "backoffice:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "backoffice:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/backoffice-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "uex-models": {
+      "root": "libs/uex-models",
+      "sourceRoot": "libs/uex-models/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-models/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-models/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-models"
+          ]
+        }
+      }
+    },
+    "uex-services": {
+      "root": "libs/uex-services",
+      "sourceRoot": "libs/uex-services/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-services/**/*.ts",
+              "libs/uex-services/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-services/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-services"
+          ]
+        }
+      }
+    },
+    "uex-store": {
+      "projectType": "library",
+      "root": "libs/uex-store",
+      "sourceRoot": "libs/uex-store/src",
+      "prefix": "uex",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-store/src/**/*.ts",
+              "libs/uex-store/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-store/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-store"
+          ]
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "uex-constants": {
+      "root": "libs/uex-constants",
+      "sourceRoot": "libs/uex-constants/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-constants/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-constants/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-constants"
+          ]
+        }
+      }
+    },
+    "uex-popup": {
+      "root": "libs/uex-popup",
+      "sourceRoot": "libs/uex-popup/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-popup/**/*.ts",
+              "libs/uex-popup/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-popup/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-popup"
+          ]
+        }
+      }
+    },
+    "uex-tel-input": {
+      "root": "libs/uex-tel-input",
+      "sourceRoot": "libs/uex-tel-input/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-tel-input/**/*.ts",
+              "libs/uex-tel-input/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-tel-input/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-tel-input"
+          ]
+        }
+      }
+    },
+    "uex-browser-not-supported": {
+      "root": "libs/uex-browser-not-supported",
+      "sourceRoot": "libs/uex-browser-not-supported/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-browser-not-supported/**/*.ts",
+              "libs/uex-browser-not-supported/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-browser-not-supported/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-browser-not-supported"
+          ]
+        }
+      }
+    },
+    "uex-breadcrumb": {
+      "root": "libs/uex-breadcrumb",
+      "sourceRoot": "libs/uex-breadcrumb/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-breadcrumb/**/*.ts",
+              "libs/uex-breadcrumb/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-breadcrumb/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-breadcrumb"
+          ]
+        }
+      }
+    },
+    "uex-coverage-details": {
+      "root": "libs/uex-coverage-details",
+      "sourceRoot": "libs/uex-coverage-details/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-coverage-details/**/*.ts",
+              "libs/uex-coverage-details/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-coverage-details/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-coverage-details"
+          ]
+        }
+      }
+    },
+    "uex-dark-menu": {
+      "root": "libs/uex-dark-menu",
+      "sourceRoot": "libs/uex-dark-menu/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-dark-menu/**/*.ts",
+              "libs/uex-dark-menu/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-dark-menu/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-dark-menu"
+          ]
+        }
+      }
+    },
+    "uex-header": {
+      "root": "libs/uex-header",
+      "sourceRoot": "libs/uex-header/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-header/**/*.ts",
+              "libs/uex-header/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-header/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-header"
+          ]
+        }
+      }
+    },
+    "uex-left-menu": {
+      "root": "libs/uex-left-menu",
+      "sourceRoot": "libs/uex-left-menu/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-left-menu/**/*.ts",
+              "libs/uex-left-menu/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-left-menu/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-left-menu"
+          ]
+        }
+      }
+    },
+    "uex-offer-customisation": {
+      "root": "libs/uex-offer-customisation",
+      "sourceRoot": "libs/uex-offer-customisation/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-offer-customisation/**/*.ts",
+              "libs/uex-offer-customisation/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-offer-customisation/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-offer-customisation"
+          ]
+        }
+      }
+    },
+    "uex-quote-summary": {
+      "root": "libs/uex-quote-summary",
+      "sourceRoot": "libs/uex-quote-summary/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-quote-summary/**/*.ts",
+              "libs/uex-quote-summary/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-quote-summary/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-quote-summary"
+          ]
+        }
+      }
+    },
+    "uex-sidenav": {
+      "root": "libs/uex-sidenav",
+      "sourceRoot": "libs/uex-sidenav/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-sidenav/**/*.ts",
+              "libs/uex-sidenav/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-sidenav/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-sidenav"
+          ]
+        }
+      }
+    },
+    "uex-snackbar": {
+      "root": "libs/uex-snackbar",
+      "sourceRoot": "libs/uex-snackbar/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-snackbar/**/*.ts",
+              "libs/uex-snackbar/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-snackbar/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-snackbar"
+          ]
+        }
+      }
+    },
+    "uex-guards": {
+      "root": "libs/uex-guards",
+      "sourceRoot": "libs/uex-guards/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-guards/**/*.ts",
+              "libs/uex-guards/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-guards/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-guards"
+          ]
+        }
+      }
+    },
+    "uex-resolvers": {
+      "root": "libs/uex-resolvers",
+      "sourceRoot": "libs/uex-resolvers/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-resolvers/**/*.ts",
+              "libs/uex-resolvers/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-resolvers/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-resolvers"
+          ]
+        }
+      }
+    },
+    "uex-pipes": {
+      "root": "libs/uex-pipes",
+      "sourceRoot": "libs/uex-pipes/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uex-pipes/**/*.ts",
+              "libs/uex-pipes/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/uex-pipes/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/uex-pipes"
+          ]
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": false
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  }
+}

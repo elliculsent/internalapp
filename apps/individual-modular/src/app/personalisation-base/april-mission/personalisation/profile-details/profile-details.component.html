@@ -1,0 +1,121 @@
+<div class="container text-center col-12 offset-lg-2 col-lg-8 px-0">
+    <div class="mb-5" [formGroup]="profilForm">
+        <h1 class="my-5 font-weight-bold">{{ subFlow?.main_title }}</h1>
+        <h5 class="mb-5 font-weight-bold">{{ subFlow?.entity_type_title }}</h5>
+        <div *ngFor="let control of subFlow?.form_controls">
+            <div class="form-row" *ngIf="control.id === 'entity_type'">
+                <div class="col-sm-6 mb-3 mb-sm-0" *ngFor="let option of control.options">
+                    <button
+                        type="button"
+                        class="btn btn-lg btn-outline-info btn-block py-3 text-hover-white border-2px mb-sm-2"
+                        [ngClass]="{
+                            ' active text-white': profilForm.value[control.id] === option.value
+                        }"
+                        (click)="setControlValueById(option.value, control.id)"
+                    >
+                        {{ option.name }}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="text-left">
+            <span
+                class="c-pointer text-uex"
+                (click)="openHelptip(subFlow?.entity_type_definition.id)"
+                >{{ subFlow?.entity_type_definition?.title }}</span
+            >
+        </div>
+        <div class="form-group mt-5" *ngIf="profilForm.get('entity_type').valid">
+            <h5 class="mb-4 font-weight-bold">{{ subFlow?.contact_details_title }}</h5>
+            <div class="form-row">
+                <ng-container *ngFor="let control of subFlow?.form_controls; let last = last">
+                    <div class="mb-3 col-sm-6" *ngIf="control.type === 'text'">
+                        <!--                     <div
+                        class="mb-3"
+                        *ngIf="control.type === 'text'"
+                        [ngClass]="
+                            last && subFlow?.form_controls.length - (1 % 2) !== 0
+                                ? 'col-sm-12'
+                                : 'col-sm-6'
+                        "
+                    > -->
+                        <input
+                            type="text"
+                            class="form-control border-2px"
+                            [ngClass]="{
+                                'is-invalid':
+                                    profilForm.get(control.id).touched &&
+                                    profilForm.get(control.id).invalid
+                            }"
+                            [formControlName]="control.id"
+                            [placeholder]="control.placeholder"
+                        />
+                    </div>
+                    <div class="col-sm-6 mb-3" *ngIf="control.type === 'email'">
+                        <input
+                            type="email"
+                            class="form-control border-2px"
+                            [ngClass]="{
+                                'is-invalid':
+                                    profilForm.get(control.id).touched &&
+                                    profilForm.get(control.id).invalid
+                            }"
+                            [formControlName]="control.id"
+                            [placeholder]="control.placeholder"
+                        />
+                    </div>
+                    <div class="col-sm-6 mb-3" *ngIf="control.type === 'phone'">
+                        <uex-tel-input
+                            (eGetNumber)="getNumber($event, control.id)"
+                            (eIsValid)="isValidNumber($event, control.id)"
+                            [placeholder]="control.placeholder"
+                            [value]="profilForm.get(control.id).value"
+                            [initialCountry]="selectedCountry"
+                        >
+                        </uex-tel-input>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="form-group mt-3" *ngIf="profilForm.get('entity_type').valid">
+            <div class="mb-3" *ngFor="let option of subFlow?.agreement">
+                <ng-container *ngIf="option.type === 'checkbox'">
+                    <div class="custom-control custom-checkbox">
+                        <input
+                            class="custom-control-input"
+                            type="checkbox"
+                            [id]="option.id"
+                            [formControlName]="option.id"
+                        />
+                        <label
+                            class="custom-control-label text-left"
+                            [for]="option.id"
+                            [innerHTML]="option.content"
+                        ></label>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <button
+        type="button"
+        class="btn btn-info text-white mb-4 d-none d-lg-inline"
+        [disabled]="profilForm.invalid"
+        (click)="continue()"
+    >
+        {{ subFlow?.continue_btn_label }}
+    </button>
+</div>
+
+<nav class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar">
+    <div class="form-inline m-auto">
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            [disabled]="profilForm.invalid"
+            (click)="continue()"
+        >
+            {{ subFlow?.continue_btn_label }}
+        </button>
+    </div>
+</nav>

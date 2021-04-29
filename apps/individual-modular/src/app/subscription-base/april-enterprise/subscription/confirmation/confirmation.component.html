@@ -1,0 +1,37 @@
+<div class="containercol-12 offset-lg-2 col-lg-8 px-0 mb-100" *ngIf="subFlowFields$ | async as subFlow; else genericContent">
+    <div *ngIf="subFlow && subFlow.content; else genericContent"> 
+        <div class="row text-center">
+            <div class="col">
+                <h5 class="my-5 font-weight-bold">{{ subFlow.title }}</h5>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col col-md-8 col-xl-6">
+                <p
+                    *ngFor="let lineContent of subFlow.content"
+                    class="mb-4"
+                    [innerHTML]="lineContent.line"
+                ></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #genericContent>
+    <div class="containercol-12 offset-lg-2 col-lg-8 px-0 mb-100">        
+        <div class="row text-center">
+            <div class="col">
+                <h5 class="my-5 font-weight-bold">Merci pour votre confiance</h5>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col col-md-8 col-xl-6">
+                <p class="mb-4">Votre contrat est maintenant validé !</p>
+                <p class="mb-4">Vous allez recevoir par e-mail d’ici quelques minutes vos documents d’adhésion, vos conditions générales et document d'information produit.</p>
+                <p class="mb-4">Nous sommes ravis de vous compter parmi nos clients et restons à votre écoute si vous avez des questions.</p>
+                <p class="mb-4">L’équipe APRIL Entreprise</p>
+            </div>
+        </div>
+    </div>
+</ng-template>

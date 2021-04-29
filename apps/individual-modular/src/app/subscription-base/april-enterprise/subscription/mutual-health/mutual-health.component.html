@@ -1,0 +1,155 @@
+<div
+    class="container text-center col-12 offset-lg-2 col-lg-8 px-0 mb-100"
+    *ngIf="subFlowFields$ | async as subFlowFields"
+>
+    <form [formGroup]="mutualHealthForm">
+        <div class="form-row" *ngIf="healthBenefitFields$ | async as healthBenefitFields">
+            <h5 class="my-5 font-weight-bold">
+                {{ subFlowFields.title }}
+            </h5>
+            <ng-container *ngFor="let control of healthBenefitFields.controls">
+                <ng-container *ngIf="control.type === 'radio-button'">
+                    <div class="col-sm-6 mb-3" *ngFor="let option of control.options">
+                        <button
+                            type="button"
+                            class="btn btn-lg btn-outline-info btn-block py-3 text-hover-white border-2px"
+                            [ngClass]="{
+                                'active text-white':
+                                mutualHealthForm.get(control.id).value === option.value
+                            }"
+                            (click)="selectRadioButton(control.id, option.value)"
+                        >
+                            {{ option.name }}
+                        </button>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+        <div *ngIf="tnsFields$ | async as tnsFields">
+            <h5 class="my-5 font-weight-bold">{{ subFlowFields.title_tns }}</h5>
+            <div class="form-row">
+                <ng-container *ngFor="let control of tnsFields.controls">
+                    <div class="col-sm-6 mb-3" *ngIf="control.type === 'text'">
+                        <input
+                            *ngIf="!control.validation?.mask"
+                            type="text"
+                            class="form-control border-2px"
+                            [ngClass]="{
+                                'is-invalid':
+                                    mutualHealthForm.get(control.id).touched &&
+                                    mutualHealthForm.get(control.id).invalid
+                            }"
+                            [placeholder]="control.placeholder"
+                            [formControlName]="control.id"
+                        />
+
+                        <input
+                            *ngIf="control.validation?.mask"
+                            type="text"
+                            class="form-control border-2px"
+                            [ngClass]="{
+                                'is-invalid':
+                                    mutualHealthForm.get(control.id).touched &&
+                                    mutualHealthForm.get(control.id).invalid
+                            }"
+                            [formControlName]="control.id"
+                            [placeholder]="control.placeholder"
+                            [textMask]="{mask: fieldMasks[control.id]}"
+                        />
+                    </div>
+
+                    <div class="col-sm-6 mb-3" *ngIf="control.type === 'dropdown'">
+                        <input
+                            type="text"
+                            class="form-control border-2px"
+                            matInput
+                            [ngClass]="{
+                                'is-invalid':
+                                    mutualHealthForm.get(control.id).touched &&
+                                    mutualHealthForm.get(control.id).invalid
+                            }"
+                            [placeholder]="control.placeholder"
+                            aria-label="Number"
+                            [matAutocomplete]="auto"
+                            [formControlName]="control.id"
+                        />
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                            <mat-option
+                                *ngFor="let option of filteredOptions[control.id] | async"
+                                [value]="option"
+                            >
+                                {{ option.name }}</mat-option
+                            >
+                        </mat-autocomplete>
+                    </div>
+                    <div class="col-sm-6 mb-3 input-group" *ngIf="control.type === 'date'">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" (click)="dp.toggleCalendar()">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                        <input
+                            type="text"
+                            [name]="control.id"
+                            class="form-control border-2px"
+                            [placeholder]="control.placeholder"
+                            angular-mydatepicker
+                            #dp="angular-mydatepicker"
+                            [formControlName]="control.id"
+                            [options]="dateOptions[control.id]"
+                            (click)="dp.toggleCalendar()"
+                            readonly
+                        />
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="tncLiquidationFields$ | async as tncLiquidationFields">
+            <h5 class="my-5 font-weight-bold">
+                {{ subFlowFields.title_liquidation }}
+            </h5>
+            <ng-container *ngFor="let control of tncLiquidationFields.controls">
+                <ng-container *ngIf="control.type === 'checkbox'">
+                    <div class="col-sm-6 mb-3" *ngFor="let option of control.options">
+                        <button
+                            type="button"
+                            class="btn btn-lg btn-outline-info btn-block py-3 text-hover-white border-2px"
+                            [ngClass]="{
+                                'active text-white':
+                                mutualHealthForm.get(control.id).value === option.value
+                            }"
+                            (click)="selectRadioButton(control.id, option.value)"
+                        >
+                            {{ option.name }}
+                        </button>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+    </form>
+    <button
+        type="button"
+        class="btn btn-info text-white my-5 d-none d-lg-inline"
+        [disabled]="mutualHealthForm.invalid || mutualHealthForm.pending"
+        (click)="continue()"
+    >
+        {{ subFlowFields.continue_button_label }}
+    </button>
+</div>
+
+<nav class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar"
+    *ngIf="subFlowFields$ | async as subFlowFields">
+    <div class="form-inline m-auto">
+        <button type="button" class="btn btn-outline-warning border-2px" (click)="back()">
+            Retour
+        </button>
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            [disabled]="mutualHealthForm.invalid || mutualHealthForm.pending"
+            (click)="continue()"
+        >
+            {{ subFlowFields.continue_button_label }}
+        </button>
+    </div>
+</nav>

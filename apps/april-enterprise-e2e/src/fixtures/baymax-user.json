@@ -1,0 +1,13 @@
+{
+    "existing_email_address": "tech+automation@uexglobal.com",
+    "valid_email_address": "tech@uexglobal.com",
+    "new_email_address": "tech+new@uexglobal.com",
+    "common_password": "testtest",
+    "password": "testT3st",
+    "mockPolicy": {
+        "firstname": "Dummy firstname",
+        "lastname": "Dummy lastname",
+        "email_address": "mock@test.com",
+        "phone_number": "+33612345678"
+    }
+}

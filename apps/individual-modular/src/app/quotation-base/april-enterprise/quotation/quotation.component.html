@@ -1,0 +1,37 @@
+<uex-header
+    (eShowDarkMenu)="eShowDarkMenu()"
+    (eLogin)="join()"
+    [showPartager]="true"
+    [showAdherer]="true"
+    [config]="headerConfig"
+    (ePartager)="shareOffer($event)"
+    [showFooterBtn]="true"
+    (eCodeDistributor)="validateCodeDistributor($event)"
+    [userEmail]="intermediaryName"
+    [invalidCode]="invalidCode"
+    [showSave]="showSave"
+    [intermediaryCode]="intermediaryCode"
+    [readonlyCode]="readonlyCode$ | async"
+></uex-header>
+
+<div class="container-fluid quotation-container h-100">
+    <div class="row mb-4">
+        <div class="col">
+            <uex-breadcrumb [data]="breadcrumbData"></uex-breadcrumb>
+        </div>
+    </div>
+    <div class="row px-0 h-100">
+        <div class="col">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col fixed-bottom text-center d-none d-lg-block pb-3 bg-white">
+            <hr class="mt-0" />
+            <span *ngFor="let item of footerConfig; let i = index">
+                <a class="text-uex" [href]="item.link" target="_blank">{{ item.label }}</a>
+                <span *ngIf="i !== footerConfig.length - 1">&nbsp;-&nbsp;</span>
+            </span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.e2e.json"
+    }
+  ],
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "../node_modules",
+    "types": [
+      "cypress"
+      ],
+    "resolveJsonModule": true
+  },
+  "include": [
+    "*/.*"
+  ],
+}
+

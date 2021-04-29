@@ -1,0 +1,28 @@
+.countryLanguageForm {
+    .close {
+        outline: none;
+    }
+
+    .title {
+        font-weight: bold;
+    }
+
+    .btn:hover {
+        border: 1px solid #54b7b6 !important;
+        color: #54b7b6;
+
+        small {
+            color: #54b7b6 !important;
+        }
+    }
+
+    .btn {
+        font-weight: 500;
+        font-size: 1rem;
+
+        small {
+            top: -5px;
+            position: relative;
+        }
+    }
+}

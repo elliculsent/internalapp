@@ -1,0 +1,150 @@
+<nav class="navbar fixed-top navbar-light bg-white shadow py-4">
+    <div class="container-fluid px-0">
+        <div class="col-lg-3 px-2">
+            <span class="navbar-brand logo mr-0 ml-xl-3" rel="noreferrer noopener">
+                <img
+                    [src]="config.header_logo.image"
+                    height="110"
+                    [alt]="config.header_logo.image_alt_text"
+                />
+            </span>
+            <i class="fa-uex-bars float-right pt-2 ml-3 c-pointer" (click)="showDarkMenu()"></i>
+            <div class="form-inline float-right d-lg-none col-6 offset-3 justify-content-end">
+                <input
+                    type="text"
+                    class="form-control border-2px mt-2"
+                    [ngClass]="{'is-invalid': invalidCode}"
+                    [placeholder]="config.intermediary_code.placeholder"
+                    [value]="intermediaryCode"
+                    [readOnly]="readonlyCode"
+                    #code1
+                />
+            </div>
+        </div>
+        <div class="col-lg-9 d-none d-lg-inline">
+            <div class="form-inline float-right">
+                <span class="intermediary-name mr-2" *ngIf="userEmail">{{ userEmail }}</span>
+                <input
+                    type="text"
+                    class="form-control border-2px"
+                    [ngClass]="{'is-invalid': invalidCode}"
+                    [placeholder]="config.intermediary_code.placeholder"
+                    [value]="intermediaryCode"
+                    [readOnly]="readonlyCode"
+                    #code
+                />
+
+                <span class="ml-2" *ngIf="showPrice && priceDisplay">
+                    <span class="price text-warning d-inline-block">
+                        <b
+                            >{{ priceDisplay.monthly_price_value | number: '1.2-2'
+                            }}{{ priceDisplay.currency_symbole }}</b
+                        >
+                    </span>
+                    <span class="duration"
+                        >&nbsp; /{{ priceDisplay.per_month_label }}
+                        {{ priceDisplay.help_tip_label }}
+                        <i
+                            class="fa fa-info-circle c-pointer text-muted"
+                            (click)="emitPriceHelpTip(priceDisplay.help_tips)"
+                        ></i>
+                    </span>
+                </span>
+
+                <div class="btn-group ml-2" *ngIf="showPartager">
+                    <button
+                        type="button"
+                        class="btn btn-outline-info dropdown-toggle border-2px text-hover-white"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        <i class="fa" [class]="config.sharing_offer.icon_class"></i>
+                        {{ config.sharing_offer.label }}
+                    </button>
+                    <div class="dropdown-menu">
+                        <div *ngFor="let item of config.sharing_offer.menu; let i = index">
+                            <span *ngIf="item.value !== 'save'">
+                                <span
+                                    class="dropdown-item c-pointer"
+                                    (click)="emitPartager(item.value)"
+                                    ><i class="fa" [class]="item.icon_class"></i>
+                                    {{ item.label }}</span
+                                >
+                                <div
+                                    class="dropdown-divider"
+                                    *ngIf="i < config.sharing_offer.menu.length - 2"
+                                ></div>
+                            </span>
+                            <span *ngIf="item.value === 'save' && showSave">
+                                <div class="dropdown-divider"></div>
+                                <span
+                                    class="dropdown-item c-pointer"
+                                    (click)="emitPartager(item.value)"
+                                    ><i class="fa" [class]="item.icon_class"></i>
+                                    {{ item.label }}</span
+                                >
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <button
+                    type="button"
+                    class="btn btn-warning border-2px text-white ml-2"
+                    *ngIf="showAdherer"
+                    (click)="login()"
+                >
+                    {{ config.subscription_button.label }}
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<nav
+    class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar"
+    *ngIf="showFooterBtn"
+>
+    <form class="form-inline m-auto">
+        <div class="btn-group dropup" *ngIf="showPartager">
+            <button
+                type="button"
+                class="btn btn-outline-info dropdown-toggle border-2px text-hover-white"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+            >
+                <i class="fa" [class]="config.sharing_offer.icon_class"></i>
+                {{ config.sharing_offer.label }}
+            </button>
+            <div class="dropdown-menu">
+                <div *ngFor="let item of config.sharing_offer.menu; let i = index">
+                    <span *ngIf="item.value !== 'save'">
+                        <span class="dropdown-item c-pointer" (click)="emitPartager(item.value)"
+                            ><i class="fa" [class]="item.icon_class"></i> {{ item.label }}</span
+                        >
+                        <div
+                            class="dropdown-divider"
+                            *ngIf="i < config.sharing_offer.menu.length - 2"
+                        ></div>
+                    </span>
+                    <span *ngIf="item.value === 'save' && showSave">
+                        <div class="dropdown-divider"></div>
+                        <span class="dropdown-item c-pointer" (click)="emitPartager(item.value)"
+                            ><i class="fa" [class]="item.icon_class"></i> {{ item.label }}</span
+                        >
+                    </span>
+                </div>
+            </div>
+        </div>
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            *ngIf="showAdherer"
+            (click)="login()"
+        >
+            {{ config.subscription_button.label }}
+        </button>
+    </form>
+</nav>

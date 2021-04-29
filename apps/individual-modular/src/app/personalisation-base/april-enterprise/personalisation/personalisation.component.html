@@ -1,0 +1,46 @@
+<uex-header
+    (eShowDarkMenu)="eShowDarkMenu()"
+    [config]="headerConfig"
+    (eCodeDistributor)="validateCodeDistributor($event)"
+    [userEmail]="intermediaryName$ | async"
+    [invalidCode]="invalidCode"
+    [intermediaryCode]="intermediaryCode$ | async"
+    [readonlyCode]="readonlyCode$ | async"
+></uex-header>
+
+<div class="container-fluid personnaliser-container h-100">
+    <div class="row h-100">
+        <div class="col-lg-3 px-0 bg-uex d-none d-lg-block left-menu-container">
+            <div class="position-fixed menu-links">
+                <uex-left-menu
+                    *ngIf="leftMenuData$ | async as leftMenu"
+                    [menu]="leftMenu.menu"
+                ></uex-left-menu>
+                <div
+                    class="fixed-bottom position-absolute text-center text-white bg-uex"
+                    *ngIf="poweredByData$ | async as poweredBy"
+                >
+                    <small>{{ poweredBy.powered_by_label }}</small>
+                    <img
+                        [src]="poweredBy.powered_by_logo"
+                        height="40"
+                        [alt]="poweredBy.powered_by_alt_text"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 fixed-content">
+            <uex-breadcrumb [data]="breadcrumbData"></uex-breadcrumb>
+            <router-outlet></router-outlet>
+            <div
+                class="col-lg-9 offset-lg-3 fixed-bottom text-center d-none d-lg-block pb-3 bg-white"
+            >
+                <hr class="mt-0" />
+                <span *ngFor="let item of footerConfig; let i = index">
+                    <a class="text-uex" [href]="item.link | safe: 'url'" target="_blank">{{ item.label }}</a>
+                    <span *ngIf="i !== footerConfig.length - 1">&nbsp;-&nbsp;</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

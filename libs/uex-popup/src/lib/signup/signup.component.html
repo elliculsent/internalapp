@@ -1,0 +1,119 @@
+<div class="uex-dialog-container" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" mat-dialog-title>
+					<!-- <i class="fa fa-user-o"></i> -->
+					{{ config.title }}
+				</h4>
+				<button
+					type="button"
+					class="close text-white"
+					aria-label="Close"
+					mat-button
+					mat-dialog-close
+				>
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<br />
+				<div [formGroup]="signupForm">
+					<div class="input-group mb-3 col-md-10 col-sm-12 offset-md-1">
+						<div class="input-group-prepend">
+							<div class="input-group-text bg-white border-right-0"
+							[ngClass]="{ 'border-danger': errors.email }"
+							>
+								<i class="fa fa-at"></i>
+							</div>
+						</div>
+						<input
+							type="email"
+							class="form-control border-left-0"
+							[ngClass]="{ 'is-invalid': errors.email }"
+							formControlName="email"
+							[placeholder]="config.email_placeholder"
+							id="signUpEmail"
+						/>
+						<div
+							class="invalid-feedback"
+							*ngIf="errors.email && errors.email?.required"
+						>
+							{{ config.email_err_message }}
+						</div>
+						<div
+							class="invalid-feedback"
+							*ngIf="errors.email && (errors.email?.email || errors.email?.pattern)"
+						>
+							{{ config.email_err_pattern_message }}
+						</div>
+					</div>
+					<div class="input-group mb-3 col-md-10 col-sm-12 offset-md-1">
+						<div class="input-group-prepend">
+							<div class="input-group-text bg-white border-right-0"
+							[ngClass]="{ 'border-danger': errors.password || errors.passwordMatch }"
+							>
+								<i class="fa fa-asterisk"></i>
+							</div>
+						</div>
+						<input
+							type="password"
+							class="form-control border-left-0"
+							[ngClass]="{ 'is-invalid': errors.password || errors.passwordMatch }"
+							formControlName="password"
+							[placeholder]="config.password_placeholder"
+							id="signUpPassword"
+						/>
+						<div
+							class="invalid-feedback"
+							*ngIf="errors.password && errors.password?.required"
+						>
+							{{ config.password_err_message }}
+						</div>
+						<div class="invalid-feedback" *ngIf="errors.passwordMatch">
+							{{ config.password_err_message }}
+						</div>
+					</div>
+					<div class="input-group mb-3 col-md-10 col-sm-12 offset-md-1">
+						<div class="input-group-prepend">
+							<div class="input-group-text bg-white border-right-0"
+							[ngClass]="{ 'border-danger': errors.confirmPassword || errors.confirmPasswordMatch }"
+							>
+								<i class="fa fa-asterisk"></i>
+							</div>
+						</div>
+						<input
+							type="password"
+							class="form-control border-left-0"
+							[ngClass]="{
+								'is-invalid': errors.confirmPassword || errors.confirmPasswordMatch
+							}"
+							formControlName="confirmPassword"
+							[placeholder]="config.confirm_password_placeholder"
+							id="confirmPassword"
+						/>
+						<div
+							class="invalid-feedback"
+							*ngIf="errors.confirmPassword && errors.confirmPassword?.required"
+						>
+							{{ config.confirm_password_err_message }}
+						</div>
+						<div class="invalid-feedback" *ngIf="errors.confirmPasswordMatch">
+							{{ config.password_err_message }}
+						</div>
+					</div>
+				</div>
+				<div class="col-10 offset-1 text-center">
+					<button type="button" id="signUpBtn" class="btn btn-block btn-info text-white py-3" (click)="signUp()">
+						{{ config.signup_btn_label }}
+					</button>
+				</div>
+				<br />
+			</div>
+			<div class="text-center pb-4 px-3">
+				<hr />
+				{{ config.login_txt_label }} <span class="text-uex c-pointer" (click)="login()">{{ config.login_link_txt }}</span> {{ config.here_txt_label }}
+			</div>
+		</div>
+	</div>
+</div>

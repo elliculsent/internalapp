@@ -1,0 +1,53 @@
+<div
+    class="container text-center col-12 offset-lg-2 col-lg-8 px-0 mb-100"
+    *ngIf="subFlowFields$ | async as fields"
+>
+    <div class="form-group mt-5 mb-5">
+        <h5 class="mb-5 font-weight-bold">{{ fields.title }}</h5>
+        <form [formGroup]="addressForm">
+            <div class="form-row">
+                <div class="col-sm-6 offset-sm-3 mb-3" *ngFor="let control of fields.form_controls">
+                    <input
+                        *ngIf="control.type === 'text'"
+                        type="text"
+                        class="form-control border-2px"
+                        [ngClass]="{
+                            'is-invalid':
+                                addressForm.get(control.id).touched &&
+                                addressForm.get(control.id).invalid
+                        }"
+                        [placeholder]="control.placeholder"
+                        [formControlName]="control.id"
+                    />
+                </div>
+            </div>
+        </form>
+    </div>
+    <button
+        type="button"
+        class="btn btn-info text-white mb-4 d-none d-lg-inline"
+        [disabled]="addressForm.invalid || addressForm.pending"
+        (click)="continue()"
+    >
+        {{ fields.continue_button_label }}
+    </button>
+</div>
+
+<nav
+    class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar"
+    *ngIf="subFlowFields$ | async as fields"
+>
+    <div class="form-inline m-auto">
+        <button type="button" class="btn btn-outline-warning border-2px" (click)="back()">
+            {{ fields.back_button_label }}
+        </button>
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            [disabled]="addressForm.invalid || addressForm.pending"
+            (click)="continue()"
+        >
+            {{ fields.continue_button_label }}
+        </button>
+    </div>
+</nav>

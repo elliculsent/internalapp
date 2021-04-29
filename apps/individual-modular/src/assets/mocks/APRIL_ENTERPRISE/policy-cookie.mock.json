@@ -1,0 +1,31 @@
+{
+    "cookie": {
+        "domain": null
+    },
+    "position": "bottom",
+    "theme": "classic",
+    "palette": {
+        "popup": {
+            "background": "#F2F2F2",
+            "text": "#363636",
+            "link": "#363636"
+        },
+        "button": {
+            "background": "#2188E6",
+            "text": "#ffffff"
+        },
+        "highlight": {
+            "background": "#2188E6",
+            "border": "#363636",
+            "text": "#ffffff"
+        }
+    },
+    "type": "info",
+    "content": {
+        "message": "Nous utilisons des cookies et traceurs sur cette application, y compris des cookies tiers, à des fins de fonctionnement de l’application et de réalisation d’analyses statistiques. Vous pouvez accepter ces cookies de manière globale en cliquant sur « Accepter » . Pour en savoir plus sur notre politique en matière de cookies et traceurs, consultez notre Politique Données Personnelles et cookies.",
+        "dismiss": "Accepter",
+        "link": "",
+        "href": "javascript:void(0);",
+        "policy": "Cookie Policy"
+    }
+}

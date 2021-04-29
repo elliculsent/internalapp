@@ -1,0 +1,77 @@
+<div
+    class="container text-center col-12 offset-lg-2 col-lg-8 px-0 mb-100"
+    *ngIf="subFlowFields$ | async as subFlowFields"
+>
+    <h5 class="my-5 font-weight-bold">{{ subFlowFields.title }}</h5>
+    <form [formGroup]="tncForm" class="container shadow rounded border p-3">
+        <div class="form-row mb-2">
+            <div class="col-5 col-sm-4">
+                <div class="form-check form-check-inline mr-lg-4">
+                    <b>{{ subFlowFields.title_yes }}</b>
+                </div>
+                <div class="form-check form-check-inline mr-lg-4">
+                    <b>{{ subFlowFields.title_no }}</b>
+                </div>
+            </div>
+            <div class="col-7 col-sm-8 text-left pb-3"></div>
+        </div>
+
+        <div class="form-row mb-2" *ngFor="let control of subFlowFields.form_controls">
+            <div class="col-5 col-sm-4">
+                <div
+                    class="form-check form-check-inline mr-lg-4"
+                    *ngFor="let option of control.options; let index = index"
+                >
+                    <div class="custom-control custom-radio">
+                        <input
+                            type="radio"
+                            class="custom-control-input"
+                            [formControlName]="control.id"
+                            [name]="control.id"
+                            [id]="control.id + index"
+                            [value]="option.value"
+                        />
+                        <label class="custom-control-label" [for]="control.id + index"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-7 col-sm-8 text-left pb-3">
+                <span *ngFor="let condition of control.condition">
+                    <span *ngIf="condition?.line">{{ condition.line }}</span>
+                    <span
+                        class="text-uex c-pointer"
+                        *ngIf="condition?.help_tips"
+                        (click)="openHelptip(condition.help_tips)"
+                        >{{ subFlowFields[condition.help_tips].title }}</span
+                    >
+                </span>
+            </div>
+        </div>
+    </form>
+    <button
+        type="button"
+        class="btn btn-info text-white my-5 d-none d-lg-inline"
+        [disabled]="tncForm.invalid"
+        (click)="continue()"
+    >
+        {{ subFlowFields.continue_button_label }}
+    </button>
+</div>
+<nav
+    class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar"
+    *ngIf="subFlowFields$ | async as subFlowFields"
+>
+    <div class="form-inline m-auto">
+        <button type="button" class="btn btn-outline-warning border-2px mx-1" (click)="back()">
+            {{subFlowFields.back_button_label}}
+        </button>
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            [disabled]="tncForm.invalid"
+            (click)="continue()"
+        >
+            {{ subFlowFields.continue_button_label }}
+        </button>
+    </div>
+</nav>

@@ -1,0 +1,84 @@
+<div class="container text-center col-12 offset-lg-2 col-lg-8 px-0">
+    <h5 class="my-5 font-weight-bold" [innerHTML]="subFlow.title"></h5>
+    <form [formGroup]="coverTypeForm">
+        <div class="row">
+            <ng-container *ngFor="let control of subFlow.form_controls">
+                <ng-container *ngIf="control.id === 'coverage_type'">
+                    <div class="col-sm-6 mb-3 mb-sm-0" *ngFor="let option of control.options">
+                        <button
+                            type="button"
+                            class="btn btn-lg btn-outline-info btn-block py-3 text-hover-white border-2px"
+                            [ngClass]="{
+                                ' active text-white':
+                                    coverTypeForm.get([control.id]).value === option.value
+                            }"
+                            (click)="selectRadioButton(control.id, option.value)"
+                        >
+                            {{ option.name }}
+                        </button>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+        <div class="text-left mt-2">
+            <span
+                class="c-pointer text-uex"
+                (click)="openHelptip(subFlow.know_more_coverage_type.id)"
+                >{{ subFlow.know_more_coverage_type.label }}</span
+            >
+        </div>
+        <section *ngIf="coverTypeForm.get('coverage_type').valid">
+            <ng-container *ngFor="let control of subFlow.form_controls">
+                <ng-container *ngIf="control.id === 'invalidity'">
+                    <h5 class="my-5 font-weight-bold">{{ control.title }}</h5>
+                    <div class="form-row justify-content-center">
+                        <div class="col-sm-6 col-md-3 mb-2" *ngFor="let option of control.options">
+                            <button
+                                type="button"
+                                class="btn btn-lg btn-outline-info btn-block text-hover-white border-2px py-3"
+                                [ngClass]="{
+                                    ' active text-white':
+                                        coverTypeForm.get([control.id]).value === option.value
+                                }"
+                                (click)="selectRadioButton(control.id, option.value)"
+                            >
+                                {{ option.name }}
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </section>
+        <div class="text-left" *ngIf="coverTypeForm.get('coverage_type').valid">
+            <span
+                class="c-pointer text-uex"
+                (click)="openHelptip(subFlow.know_more_coverage_details.id)"
+                >{{ subFlow.know_more_coverage_details.label }}</span
+            >
+        </div>
+    </form>
+    <button
+        type="button"
+        class="btn btn-info text-white my-5 d-none d-lg-inline"
+        [disabled]="coverTypeForm.invalid"
+        (click)="continue()"
+    >
+        {{ subFlow.continue_button_label }}
+    </button>
+</div>
+
+<nav class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar">
+    <div class="form-inline m-auto">
+        <button type="button" class="btn btn-outline-warning border-2px" (click)="back()">
+            {{ subFlow.back_button_label }}
+        </button>
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            [disabled]="coverTypeForm.invalid"
+            (click)="continue()"
+        >
+            {{ subFlow.continue_button_label }}
+        </button>
+    </div>
+</nav>

@@ -1,0 +1,14 @@
+<input type="tel"
+  class="form-control border-2px"
+  ng2TelInput
+  #tel
+  [ng2TelInputOptions]="telInputOptions"
+  (hasError)="hasError($event)"
+  (ng2TelOutput)="getNumber($event)"
+  (intlTelInputObject)="telInputObject($event)"
+  [ngClass]="{'is-invalid': !isValid && changed }"
+  (blur)="onChange()"
+  (change)="onChange()"
+  [value]="telValue"
+  [textMask]="{mask: selectedMask}"
+  />

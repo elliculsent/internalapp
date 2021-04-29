@@ -1,0 +1,64 @@
+<div class="container text-center col-12 offset-lg-2 col-lg-8 px-0">
+    <h5 class="my-5 font-weight-bold">{{ subFlow?.title }}</h5>
+    <form [formGroup]="tncForm" class="container shadow rounded border p-3">
+        <ng-container *ngFor="let control of subFlow?.form_controls">
+            <div class="form-row mb-3">
+                <div class="col-5 col-sm-4">
+                    <div
+                        class="form-check form-check-inline mr-lg-4"
+                        *ngFor="let option of control.options"
+                    >
+                        <b>{{ option.label }}</b>
+                    </div>
+                </div>
+                <div class="col-7 col-sm-8 text-left"></div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="col-5 col-sm-4">
+                    <div
+                        class="form-check form-check-inline mr-lg-4"
+                        *ngFor="let option of control.options; let index = index"
+                    >
+                        <div class="custom-control custom-radio">
+                            <input
+                                type="radio"
+                                class="custom-control-input"
+                                [formControlName]="control.id"
+                                [name]="control.id"
+                                [id]="control.id + index"
+                                [value]="option.value"
+                            />
+                            <label class="custom-control-label" [for]="control.id + index"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-7 col-sm-8 text-left">
+                    <p [innerHTML]="control.condition">{{ control.condition }}</p>
+                </div>
+            </div>
+        </ng-container>
+    </form>
+    <button
+        type="button"
+        class="btn btn-info text-white my-5 d-none d-lg-inline"
+        [disabled]="tncForm.invalid"
+        (click)="continue()"
+    >
+        {{ subFlow?.continue_button_label }}
+    </button>
+</div>
+<nav class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar">
+    <div class="form-inline m-auto">
+        <button type="button" class="btn btn-outline-warning border-2px mx-1" (click)="back()">
+            {{ subFlow?.back_button_label }}
+        </button>
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            [disabled]="tncForm.invalid"
+            (click)="continue()"
+        >
+            {{ subFlow?.continue_button_label }}
+        </button>
+    </div>
+</nav>

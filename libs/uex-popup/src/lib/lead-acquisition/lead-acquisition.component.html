@@ -1,0 +1,80 @@
+<div class="arrow float-right" *ngIf="showArrow">&#x25B2;</div>
+<button type="button" class="close" aria-label="Close" mat-dialog-close>
+    <span aria-hidden="true">&times;</span>
+</button>
+<h1 mat-dialog-title class="title" [innerHtml]="config.title"></h1>
+<div mat-dialog-content>
+    <p>{{ config.description }}</p>
+    <form [formGroup]="leadAcquisitionForm">
+        <div class="form-row">
+            <div class="mb-3 col-md-6 col-sm-12">
+                <input
+                    type="text"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': errors.name }"
+                    formControlName="name"
+                    [placeholder]="config.name_placeholder"
+                />
+                <div class="invalid-feedback" *ngIf="errors.name && errors.name?.required">
+                    {{ config.name_err_message }}
+                </div>
+            </div>
+            <div class="mb-3 col-md-6 col-sm-12">
+                <input
+                    type="email"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': errors.email }"
+                    formControlName="email"
+                    [placeholder]="config.email_placeholder"
+                />
+                <div class="invalid-feedback" *ngIf="errors.email && errors.email?.required">
+                    {{ config.email_err_message }}
+                </div>
+                <div
+                    class="invalid-feedback"
+                    *ngIf="errors.email && (errors.email?.email || errors.email?.pattern)"
+                >
+                    {{ config.email_err_pattern_message }}
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="mb-3 col-12">
+                <uex-tel-input
+                    (eGetNumber)="getNumber($event)"
+                    (eIsValid)="isValidNumber($event)"
+                    [placeholder]="config.mobile_number_placeholder"
+                    [value]="leadAcquisitionForm.get('contactNumber').value"
+                    [initialCountry]="selectedCountry"
+                >
+                </uex-tel-input>
+                <div
+                    class="invalid-feedback"
+                    *ngIf="errors.contactNumber && errors.contactNumber?.required"
+                >
+                    {{ config.mobile_number_err_message }}
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="mb-3 col-12">
+                <textarea
+                    type="text"
+                    class="form-control"
+                    formControlName="my_need"
+                    [placeholder]="config.my_need_placeholder"
+                ></textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="mb-3 col-12">
+                <button type="button" class="btn btn-link col-6 text-info" (click)="skip()">
+                    {{ config.skip_btn_label }}
+                </button>
+                <button type="button" class="btn btn-info col-6 text-white" (click)="continue()">
+                    {{ config.continue_btn_label }}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

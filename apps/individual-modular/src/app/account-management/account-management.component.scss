@@ -1,0 +1,17 @@
+.personnaliser-container {
+    padding-top: 88px;
+
+    .left-menu-container {
+        z-index: 1;
+
+        .menu-links {
+            height: calc(100vh - 88px);
+            max-width: calc(25% - 15px);
+            width: 100%;
+        }
+    }
+
+    .footer {
+        z-index: unset !important;
+    }
+}

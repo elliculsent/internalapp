@@ -1,0 +1,26 @@
+<uex-header
+    (eShowDarkMenu)="eShowDarkMenu()"
+    [config]="headerConfig"
+    (eCodeDistributor)="validateCodeDistributor($event)"
+    [userEmail]="intermediaryName$ | async"
+    [invalidCode]="invalidCode"
+    [intermediaryCode]="intermediaryCode"
+></uex-header>
+
+<div class="container-fluid personnaliser-container h-100">
+    <div class="row h-100">
+        <div class="col-lg-9">
+            <!-- <uex-breadcrumb [data]="breadcrumbData"></uex-breadcrumb> -->
+            <router-outlet></router-outlet>
+            <div
+                class="col footer fixed-bottom position-absolute text-center d-none d-lg-block mb-3 bg-white"
+            >
+                <hr class="mt-0" />
+                <span *ngFor="let item of footerConfig; let i = index">
+                    <a class="text-uex" [href]="item.link" target="_blank">{{ item.label }}</a>
+                    <span *ngIf="i !== footerConfig.length - 1">&nbsp;-&nbsp;</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+{
+  "fileServerFolder": ".",
+  "fixturesFolder": "./src/fixtures",
+  "integrationFolder": "./src/integration",
+  "modifyObstructiveCode": false,
+  "pluginsFile": "./src/plugins/index",
+  "supportFile": "./src/support/index.ts",
+  "video": true,
+  "videosFolder": "../../dist/cypress/apps/april-enterprise-e2e/videos",
+  "screenshotsFolder": "../../dist/cypress/apps/april-enterprise-e2e/screenshots",
+  "chromeWebSecurity": false,
+  "baseUrl": "http://localhost:8000",
+  "projectId": "e2o3tp"
+}

@@ -1,0 +1,70 @@
+<div class="container">
+    <form class="countryLanguageForm" [formGroup]="languageNcountryForm">
+        <button type="button" class="close" aria-label="Close" mat-dialog-close>
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h1 class="title" [innerHtml]="config.fields.select_country_title"></h1>
+        <div class="btn-group btn-group-toggle flex-wrap" data-toggle="buttons">
+            <label
+                class="btn btn-lg text-left rounded mr-1"
+                *ngFor="let item of countryArray"
+                [ngClass]="{
+                    'active border-info text-info': item.iso_alpha_code === selectedCountry,
+                    'border-white': item.iso_alpha_code !== selectedCountry
+                }"
+                (click)="
+                    selectedCountry = item.iso_alpha_code; getAvailableLanguage(item.iso_alpha_code)
+                "
+            >
+                <input
+                    type="radio"
+                    name="country"
+                    formControlName="country"
+                    [value]="item.iso_alpha_code"
+                />
+                {{ item.country }} <br />
+                <small [ngClass]="{ 'text-muted': item.iso_alpha_code !== selectedCountry }">{{
+                    item.region
+                }}</small>
+            </label>
+        </div>
+        <br /><br /><br />
+        <h1 class="title" [innerHtml]="config.fields.select_language_title"></h1>
+        <div class="btn-group btn-group-toggle flex-wrap" data-toggle="buttons">
+            <label
+                class="btn btn-lg text-left rounded mr-1"
+                *ngFor="let item of languageArray"
+                [ngClass]="{
+                    'active border-info text-info': item.value === selectedLanguage,
+                    'border-white': item.value !== selectedLanguage
+                }"
+                (click)="selectedLanguage = item.value"
+            >
+                <input
+                    type="radio"
+                    name="language"
+                    formControlName="language"
+                    [value]="item.value"
+                />
+                {{ item.language }} <br />
+                <small [ngClass]="{ 'text-muted': item.value !== selectedLanguage }">{{
+                    item.region
+                }}</small>
+            </label>
+        </div>
+        <br /><br />
+    </form>
+    <hr />
+    <div class="container">
+        <div class="float-right">
+            <button
+                type="button"
+                class="btn btn-info text-white"
+                mat-dialog-close
+                (click)="close()"
+            >
+                OK
+            </button>
+        </div>
+    </div>
+</div>

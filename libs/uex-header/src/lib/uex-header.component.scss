@@ -1,0 +1,51 @@
+@import '~bootstrap/scss/_functions';
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/_breakpoints';
+
+.navbar {
+    z-index: 999;
+
+    .logo {
+        position: absolute;
+        top: -40px;
+        left: 10px;
+
+        @include media-breakpoint-down(md) {
+            left: -20px;
+        }
+    }
+
+    .intermediary-name {
+        width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .show > .btn-outline-info.dropdown-toggle,
+    .btn-outline-warning:not(:disabled):not(.disabled):active,
+    .btn-outline-warning:hover {
+        color: #ffffff !important;
+    }
+
+    &.mobile-navbar {
+        z-index: 1031 !important;
+    }
+
+    .fa-uex-bars {
+        height: 40px;
+        width: 40px;
+    }
+
+    .price {
+        font-size: 38px;
+        line-height: 100%;
+        position: relative;
+        top: 5px;
+    }
+
+    .duration {
+        position: relative;
+        top: 5px;
+    }
+}

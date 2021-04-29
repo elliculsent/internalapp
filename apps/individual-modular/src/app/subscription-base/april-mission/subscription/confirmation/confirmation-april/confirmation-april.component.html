@@ -1,0 +1,17 @@
+<div class="container text-center col-12 offset-lg-2 col-lg-8 px-0">
+    <div class="row">
+        <div class="col">
+            <h5 class="my-5 font-weight-bold">{{subFlow.title}}</h5>
+            <p
+                *ngFor="let lineContent of subFlow.content"
+                class="mb-4"
+                [innerHTML]="lineContent.line"
+            ></p>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col">
+            <button class="btn btn-lg btn-primary" (click)="newSubscription()">{{subFlow.new_subscription_btn_label}} <i class="fa fa-file-text"></i></button>
+        </div>
+    </div> -->
+</div>

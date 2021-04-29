@@ -1,0 +1,25 @@
+.modal-dialog {
+    margin: 0;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.modal-header {
+    color: #ffffff;
+
+    .modal-title {
+        margin-bottom: 0;
+    }
+
+    .close {
+        outline-style: none;
+        box-shadow: none;
+    }
+}
+
+.uex-dialog-container {
+    min-width: 300px;
+    max-width: 500px;
+    outline-style: none;
+    box-shadow: none;
+}

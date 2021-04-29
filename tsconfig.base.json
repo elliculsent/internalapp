@@ -1,0 +1,77 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@individual-modular/environment/*": [
+        "apps/individual-modular/src/environments/*"
+      ],
+      "@individual-modular/guards": [
+        "apps/individual-modular/src/shared/guards/index.ts"
+      ],
+      "@individual-modular/actions": [
+        "apps/individual-modular/src/store/actions/index.ts"
+      ],
+      "@individual-modular/effects": [
+        "apps/individual-modular/src/store/effects/index.ts"
+      ],
+      "@individual-modular/reducers": [
+        "apps/individual-modular/src/store/reducers/index.ts"
+      ],
+      "@individual-modular/selectors": [
+        "apps/individual-modular/src/store/selectors/index.ts"
+      ],
+      "@individual-modular/shared/*": ["apps/individual-modular/src/shared/*"],
+      "@individual-modular/resolvers/*": [
+        "apps/individual-modular/src/shared/resolvers/*"
+      ],
+      "@individual-modular/services/*": [
+        "apps/individual-modular/src/shared/services/*"
+      ],
+      "@uex/uex-breadcrumb": ["libs/uex-breadcrumb/src/index.ts"],
+      "@uex/uex-browser-not-supported": [
+        "libs/uex-browser-not-supported/src/index.ts"
+      ],
+      "@uex/uex-constants": ["libs/uex-constants/src/index.ts"],
+      "@uex/uex-coverage-details": ["libs/uex-coverage-details/src/index.ts"],
+      "@uex/uex-dark-menu": ["libs/uex-dark-menu/src/index.ts"],
+      "@uex/uex-guards": ["libs/uex-guards/src/index.ts"],
+      "@uex/uex-header": ["libs/uex-header/src/index.ts"],
+      "@uex/uex-left-menu": ["libs/uex-left-menu/src/index.ts"],
+      "@uex/uex-models": ["libs/uex-models/src/index.ts"],
+      "@uex/uex-offer-customisation": [
+        "libs/uex-offer-customisation/src/index.ts"
+      ],
+      "@uex/uex-pipes": ["libs/uex-pipes/src/index.ts"],
+      "@uex/uex-popup": ["libs/uex-popup/src/index.ts"],
+      "@uex/uex-quote-summary": ["libs/uex-quote-summary/src/index.ts"],
+      "@uex/uex-resolvers": ["libs/uex-resolvers/src/index.ts"],
+      "@uex/uex-services": ["libs/uex-services/src/index.ts"],
+      "@uex/uex-sidenav": ["libs/uex-sidenav/src/index.ts"],
+      "@uex/uex-snackbar": ["libs/uex-snackbar/src/index.ts"],
+      "@uex/uex-store": ["libs/uex-store/src/index.ts"],
+      "@uex/uex-store/actions": ["libs/uex-store/src/lib/actions/index.ts"],
+      "@uex/uex-store/effects": ["libs/uex-store/src/lib/effects/index.ts"],
+      "@uex/uex-store/reducers": ["libs/uex-store/src/lib/reducers/index.ts"],
+      "@uex/uex-store/selectors": ["libs/uex-store/src/lib/selectors/index.ts"],
+      "@uex/uex-store/selectors/entity-policy": [
+        "libs/uex-store/src/lib/selectors/index-entity-policy.ts"
+      ],
+      "@uex/uex-tel-input": ["libs/uex-tel-input/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

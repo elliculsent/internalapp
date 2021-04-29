@@ -1,0 +1,27 @@
+.title {
+    font-weight: 500;
+}
+
+.fa {
+    font-size: 22px;
+    border: none;
+
+    &:before {
+        background-color: white;
+    }
+}
+
+.arrow {
+    top: -38px;
+    right: 16px;
+    position: relative;
+    color: #ffffff;
+}
+
+.close {
+    outline: none;
+}
+
+.form-control {
+    border-width: 2px;
+}

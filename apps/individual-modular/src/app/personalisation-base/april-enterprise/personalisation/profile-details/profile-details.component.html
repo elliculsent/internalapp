@@ -1,0 +1,77 @@
+<div
+    class="container text-center col-12 offset-lg-2 col-lg-8 px-0 mb-100"
+    *ngIf="subFlowFields$ | async as fields"
+>
+    <h1 class="my-5 font-weight-bold">{{ fields.main_title }}</h1>
+    <div class="form-group mt-5 mb-5">
+        <h5 class="mb-5 font-weight-bold">{{ fields.contact_details_title }}</h5>
+        <form id="profileDetailsForm" [formGroup]="profileDetailsForm">
+            <div class="form-row">
+                <div class="col-sm-6 mb-3" *ngFor="let control of fields.form_controls">
+                    <input
+                        *ngIf="control.type === 'text'"
+                        type="text"
+                        class="form-control border-2px"
+                        [ngClass]="{
+                            'is-invalid':
+                                profileDetailsForm.get(control.id).touched &&
+                                profileDetailsForm.get(control.id).invalid
+                        }"
+                        [formControlName]="control.id"
+                        [placeholder]="control.placeholder"
+                        [id]="control.id"
+                    />
+                    <input
+                        *ngIf="control.type === 'email'"
+                        type="email"
+                        class="form-control border-2px"
+                        [ngClass]="{
+                            'is-invalid':
+                                profileDetailsForm.get(control.id).touched &&
+                                profileDetailsForm.get(control.id).invalid
+                        }"
+                        [formControlName]="control.id"
+                        [placeholder]="control.placeholder"
+                        [id]="control.id"
+                    />
+                    <uex-tel-input
+                        *ngIf="control.type === 'phone'"
+                        (eGetNumber)="getNumber($event, control.id)"
+                        (eIsValid)="isValidNumber($event, control.id)"
+                        [placeholder]="control.placeholder"
+                        [value]="profileDetailsForm.get(control.id).value"
+                        [initialCountry]="selectedCountry$ | async"
+                        [id]="control.id"
+                    >
+                    </uex-tel-input>
+                </div>
+            </div>
+        </form>
+    </div>
+    <button
+        type="button"
+        class="btn btn-info text-white mb-4 d-none d-lg-inline"
+        [disabled]="profileDetailsForm.invalid"
+        (click)="continue()"
+        id="continueBtn"
+    >
+        {{ fields.continue_btn_label }}
+    </button>
+</div>
+
+<nav
+    class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar"
+    *ngIf="subFlowFields$ | async as fields"
+>
+    <div class="form-inline m-auto">
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            [disabled]="profileDetailsForm.invalid"
+            (click)="continue()"
+            id="continueBtn"
+        >
+            {{ fields.continue_btn_label }}
+        </button>
+    </div>
+</nav>

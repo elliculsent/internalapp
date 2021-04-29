@@ -1,0 +1,78 @@
+<aside class="dark-sidenav-container text-white">
+    <section>
+        <img class="logo" [src]="menuData?.logo" height="110" [alt]="menuData?.logo_alt_text" />
+        <i class="fa-uex-bars-white float-right mt-3 c-pointer" (click)="close()"></i>
+    </section>
+    <section class="ml-5" *ngFor="let item of menuData?.menu">
+        <h6>{{ item.label }}</h6>
+        <ul class="no-bullet mt-3">
+            <li *ngFor="let submenu of item.sub_menu">
+                <a
+                    target="_blank"
+                    class="text-white"
+                    *ngIf="submenu.link_type === 'href'"
+                    [href]="getlink(submenu.link)"
+                    >{{ submenu.label }}</a
+                >
+                <a
+                    target="_blank"
+                    class="text-white"
+                    *ngIf="submenu.link_type === 'routerLink'"
+                    [routerLink]="getlink(submenu.link)"
+                    >{{ submenu.label }}</a
+                >
+                <a
+                    class="text-white"
+                    target="_blank"
+                    *ngIf="submenu.link_type === 'mailto'"
+                    href="mailto: {{ submenu.link }}"
+                    >{{ submenu.label }}</a
+                >
+                <a
+                    class="text-white"
+                    target="_blank"
+                    *ngIf="submenu.link_type === 'tel'"
+                    href="tel: {{ submenu.link }}"
+                    >{{ submenu.label }}</a
+                >
+                <span
+                    class="text-white text-hover-underline c-pointer"
+                    *ngIf="submenu.link_type === 'login' && !isLoggedIn"
+                    (click)="login()"
+                    >{{ submenu.label }}</span
+                >
+                <span
+                    class="text-white text-hover-underline c-pointer"
+                    *ngIf="submenu.link_type === 'logout' && isLoggedIn"
+                    (click)="logout()"
+                    >{{ submenu.label }}</span
+                >
+                <span class="text-white" *ngIf="submenu.link_type === 'sub_menu'">
+                    {{ submenu.label }}
+                    <ul class="mb-3">
+                        <li *ngFor="let subsub of submenu.sub_menu">
+                            <a
+                                class="text-white"
+                                target="_blank"
+                                *ngIf="subsub.link_type === 'mailto'"
+                                href="mailto: {{ subsub.link }}"
+                                >{{ subsub.label }}</a
+                            >
+                            <a
+                                class="text-white"
+                                target="_blank"
+                                *ngIf="subsub.link_type === 'tel'"
+                                href="tel: {{ subsub.link }}"
+                                >{{ subsub.label }}</a
+                            >
+                        </li>
+                    </ul>
+                </span>
+            </li>
+        </ul>
+    </section>
+</aside>
+<div class="fixed-bottom position-absolute text-center py-3 bg-muted">
+    <small class="font-weight-bold">{{ menuData?.powered_by_label }}</small>&nbsp;
+    <img [src]="menuData?.powered_by_logo" height="25" [alt]="menuData?.powered_by_alt_text" />
+</div>

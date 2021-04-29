@@ -1,0 +1,7 @@
+<div class="container text-center mt-5">
+    <span *ngFor="let item of data; let i = index;">
+        <a class="text-muted" *ngIf="!item.active" href="javascript:void(0)" >{{ item.label }}</a>
+        <a class="text-uex font-weight-bold" *ngIf="item.active" [routerLink]="item.link" >{{ item.label }}</a>
+        <span class="text-muted" *ngIf="i !== (data.length - 1)">&nbsp;&gt;&nbsp;</span>
+    </span>
+</div>

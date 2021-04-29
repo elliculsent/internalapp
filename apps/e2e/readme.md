@@ -1,0 +1,3 @@
+# Folder Architecture
+## Component
+## User

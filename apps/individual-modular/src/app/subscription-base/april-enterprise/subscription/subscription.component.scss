@@ -1,0 +1,18 @@
+.subscription-container {
+    padding-top: 88px;
+
+    .left-menu-container {
+        z-index: 1;
+
+        .menu-links {
+            height: calc(100vh - 88px);
+            max-width: 25%;
+            width: 100%;
+        }
+    }
+
+    .fixed-content {
+        height: 100%;
+        overflow: auto !important;
+    }
+}

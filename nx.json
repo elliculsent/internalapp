@@ -1,0 +1,116 @@
+{
+  "npmScope": "uex",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    "tslint.json": "*",
+    ".eslintrc.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "accessToken": "MTgxNGJkMWUtYWYzMC00YjU0LWE3ZjMtZDY4OGYzODkzMTBifHJlYWQtd3JpdGU=",
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
+      }
+    }
+  },
+  "projects": {
+    "april-enterprise": {
+      "tags": []
+    },
+    "april-mission": {
+      "tags": [],
+      "implicitDependencies": ["april-enterprise"]
+    },
+    "april-mission-e2e": {
+      "tags": [],
+      "implicitDependencies": ["april-mission"]
+    },
+    "april-enterprise-e2e": {
+      "tags": [],
+      "implicitDependencies": ["april-enterprise"]
+    },
+    "uex-website": {
+      "tags": []
+    },
+    "uex-website-e2e": {
+      "tags": [],
+      "implicitDependencies": ["uex-website"]
+    },
+    "backoffice": {
+      "tags": []
+    },
+    "backoffice-e2e": {
+      "tags": [],
+      "implicitDependencies": ["backoffice"]
+    },
+    "uex-models": {
+      "tags": []
+    },
+    "uex-services": {
+      "tags": []
+    },
+    "uex-store": {
+      "tags": []
+    },
+    "uex-constants": {
+      "tags": []
+    },
+    "uex-popup": {
+      "tags": []
+    },
+    "uex-tel-input": {
+      "tags": []
+    },
+    "uex-browser-not-supported": {
+      "tags": []
+    },
+    "uex-breadcrumb": {
+      "tags": []
+    },
+    "uex-coverage-details": {
+      "tags": []
+    },
+    "uex-dark-menu": {
+      "tags": []
+    },
+    "uex-header": {
+      "tags": []
+    },
+    "uex-left-menu": {
+      "tags": []
+    },
+    "uex-offer-customisation": {
+      "tags": []
+    },
+    "uex-quote-summary": {
+      "tags": []
+    },
+    "uex-sidenav": {
+      "tags": []
+    },
+    "uex-snackbar": {
+      "tags": []
+    },
+    "uex-guards": {
+      "tags": []
+    },
+    "uex-resolvers": {
+      "tags": []
+    },
+    "uex-pipes": {
+      "tags": []
+    }
+  }
+}

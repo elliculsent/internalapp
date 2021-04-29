@@ -1,0 +1,28 @@
+.mat-expansion-panel-body {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.mat-expansion-panel-content {
+    .mat-expansion-panel-body {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+}
+
+// specific for quote-summary
+.summary {
+    .w-190px {
+        width: 190px !important;
+    }
+    .w-50px {
+        width: 50px !important;
+    }
+    .w-150px {
+        width: 150px !important;
+    }
+}
+
+.top-2px {
+    top: 2px;
+}

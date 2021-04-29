@@ -1,0 +1,7 @@
+/*
+ * Public API Surface of ngx-device-detector
+ */
+export * from './lib/device-detector.constants';
+export * from './lib/device-detector.service';
+export * from './lib/retree';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIuLi8uLi8uLi8uLi9wcm9qZWN0cy9uZ3gtZGV2aWNlLWRldGVjdG9yL3NyYy8iLCJzb3VyY2VzIjpbInB1YmxpYy1hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0dBRUc7QUFFSCxjQUFjLGlDQUFpQyxDQUFDO0FBQ2hELGNBQWMsK0JBQStCLENBQUM7QUFDOUMsY0FBYyxjQUFjLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxuICogUHVibGljIEFQSSBTdXJmYWNlIG9mIG5neC1kZXZpY2UtZGV0ZWN0b3JcbiAqL1xuXG5leHBvcnQgKiBmcm9tICcuL2xpYi9kZXZpY2UtZGV0ZWN0b3IuY29uc3RhbnRzJztcbmV4cG9ydCAqIGZyb20gJy4vbGliL2RldmljZS1kZXRlY3Rvci5zZXJ2aWNlJztcbmV4cG9ydCAqIGZyb20gJy4vbGliL3JldHJlZSc7XG4iXX0=

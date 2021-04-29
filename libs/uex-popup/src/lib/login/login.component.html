@@ -1,0 +1,94 @@
+<div class="uex-dialog-container" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" mat-dialog-title>
+					<!-- <i class="fa fa-sign-in"></i> -->
+					{{ config.title }}
+				</h4>
+				<button
+					type="button"
+					class="close text-white"
+					aria-label="Close"
+					mat-button
+					mat-dialog-close
+				>
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<br />
+				<div [formGroup]="loginForm">
+					<div class="input-group mb-3 col-md-10 col-sm-12 offset-md-1">
+						<div class="input-group-prepend">
+							<div class="input-group-text bg-white border-right-0"
+							[ngClass]="{ 'border-danger': errors.email }"
+							>
+								<i class="fa fa-at"></i>
+							</div>
+						</div>
+						<input
+							type="email"
+							class="form-control border-left-0"
+							[ngClass]="{ 'is-invalid': errors.email }"
+							formControlName="email"
+							[placeholder]="config.email_placeholder"
+							id="email"
+						/>
+						<div
+							class="invalid-feedback"
+							*ngIf="errors.email && errors.email?.required"
+						>
+							{{ config.email_err_message }}
+						</div>
+						<div
+							class="invalid-feedback"
+							*ngIf="errors.email && (errors.email?.email || errors.email?.pattern)"
+						>
+							{{ config.email_err_pattern_message }}
+						</div>
+					</div>
+					<div class="input-group mb-4 col-md-10 col-sm-12 offset-md-1">
+						<div class="input-group-prepend">
+							<div class="input-group-text bg-white border-right-0"
+							[ngClass]="{ 'border-danger': errors.password }"
+							>
+								<i class="fa fa-asterisk"></i>
+							</div>
+						</div>
+						<input
+							type="password"
+							class="form-control border-left-0"
+							[ngClass]="{ 'is-invalid': errors.password }"
+							formControlName="password"
+							[placeholder]="config.password_placeholder"
+							id="password"
+						/>
+						<div
+							class="invalid-feedback"
+							*ngIf="errors.password && errors.password?.required"
+						>
+							{{ config.password_err_message }}
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-10 offset-md-1 text-right">
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3">
+							<span class="text-uex c-pointer" (click)="forgotPassword()">{{ config.forgot_password_btn_label }}</span>
+						</div>
+						<div class="col-12 col-md-6 mb-3">
+							<button type="button" class="btn btn-info btn-block text-white" (click)="submitLogin()">
+								{{ config.login_btn_label }}
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="text-center pb-4 px-3">
+				<hr />
+				{{ config.signup_txt_label }}. <span class="text-uex c-pointer" (click)="signup()">{{ config.signup_link_txt }}</span> {{ config.here_txt_label }}
+			</div>
+		</div>
+	</div>
+</div>

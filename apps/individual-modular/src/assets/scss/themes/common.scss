@@ -1,0 +1,360 @@
+body {
+    color: $gray-800 !important;
+}
+
+// Class Overrides
+.mat-drawer-container {
+    color: $body-color !important;
+    background-color: #ffffff !important;
+    position: absolute !important;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+}
+
+.mat-form-field-underline {
+    width: auto !important;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-radius: 4px 4px 4px 4px !important;
+    border: 2px solid $main-color !important;
+    background-color: #ffffff !important;
+    padding-top: 0 !important;
+}
+
+.mat-form-field-appearance-fill.mat-form-field-invalid .mat-form-field-flex {
+    border-color: $danger !important;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-infix {
+    border-top: 0;
+    padding: 0.5em 0;
+}
+
+.mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+    transform: translateY(0) !important;
+}
+
+.mat-select-arrow,
+.mat-select-value {
+    color: $main-color;
+}
+
+.mat-form-field-wrapper {
+    padding-bottom: 0;
+}
+
+.btn-warning:hover {
+    background-color: lighten($color: $yellow, $amount: 8%) !important;
+    border-color: lighten($color: $yellow, $amount: 8%) !important;
+}
+
+*:focus {
+    outline: none;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td,
+.table-striped > tbody > tr:nth-child(even) > th {
+    background-color: lighten($color: $main-color, $amount: 30%);
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: #ffffff;
+}
+
+.table-uex > tbody > tr > td:not(:last-child) {
+    border-right: 2px solid $main-color;
+}
+
+.table-uex > tbody > tr > td {
+    min-width: 100px;
+}
+
+// @include media-breakpoint-down(sm) {
+//     .table-uex {
+//         font-size: 14px;
+//     }
+// }
+
+.modal-header {
+    background-color: $main-color;
+}
+
+.mat-sidenav {
+    &.bg-dark {
+        background-color: $light-grey !important;
+
+        .dark-sidenav-container {
+            &.text-white,
+            .text-white {
+                color: $gray-800 !important;
+            }
+        }
+    }
+}
+
+.fa-uex-circle-o {
+    content: url('https://cdn.buttercms.com/0sbrzpYETWGpedgguDMu') !important;
+}
+.fa-uex-check-circle-o {
+    content: url('https://cdn.buttercms.com/zVQD9vTyRu6BCYSqih6G') !important;
+}
+.fa-uex-bars {
+    content: url('https://cdn.buttercms.com/FBVaCdKQEOHLmubqRNw9') !important;
+}
+.fa-uex-bars-white {
+    content: url('https://cdn.buttercms.com/SUoIrhhSQ63uHAM6EUuD') !important;
+}
+
+// Generic Classes
+.c-pointer {
+    cursor: pointer !important;
+}
+
+.c-unset {
+    cursor: unset !important;
+}
+
+.text-uex {
+    color: $main-color !important;
+}
+
+.text-yellow {
+    color: $light-yellow !important;
+}
+
+.border-2px {
+    border-width: 2px !important;
+}
+
+.text-hover-white:hover {
+    color: #ffffff !important;
+}
+
+.text-hover-underline:hover {
+    text-decoration: underline !important;
+}
+
+.bg-uex {
+    background-color: $main-color !important;
+}
+
+.bg-uex-light {
+    background-color: lighten($color: $main-color, $amount: 30%) !important;
+}
+
+.bg-muted {
+    background-color: $light-grey !important;
+}
+
+.bg-mid-blue {
+    background-color: $april-mid-blue !important;
+}
+
+.font-weight-bold {
+    font-weight: 600 !important;
+}
+
+.mb-100 {
+    margin-bottom: 100px;
+}
+
+.uex-modal .mat-dialog-container {
+    padding: 0;
+}
+
+.form-control[readonly]:not([disabled]) {
+    background-color: #ffffff !important;
+}
+
+.mb-100 {
+    margin-bottom: 100px;
+}
+
+.iti {
+    width: 100%;
+}
+
+.w-15 {
+    width: 15% !important;
+}
+
+.w-30 {
+    width: 30% !important;
+}
+
+.custom-radio {
+    &.custom-control {
+        padding-left: $radioSize !important;
+    }
+
+    .custom-control-label {
+        &:before,
+        &:after {
+            border: 0 !important;
+            font: normal normal normal $radioSize/1 FontAwesome;
+            color: $main-color;
+            left: -$radioSize !important;
+            width: $radioSize !important;
+            height: $radioSize !important;
+        }
+
+        &:after {
+            content: '\f1db' !important;
+            background-image: none !important;
+            // backup :)
+            // background: no-repeat 100%/100% 100% !important;
+            // background-image: url('~/assets/images/Circle_Outline-01.svg') !important;
+        }
+    }
+
+    .custom-control-input {
+        &:focus ~ .custom-control-label {
+            &:before {
+                box-shadow: none !important;
+            }
+        }
+
+        &:checked ~ .custom-control-label {
+            &:before {
+                border: 0;
+                background-color: transparent !important;
+            }
+
+            &:after {
+                content: '\f058' !important;
+                background-image: none !important;
+                // backup :)
+                // background: no-repeat 100%/100% 100% !important;
+                // background-image: url('~/assets/images/Circle_Outline_Back_To_Page-01.svg') !important;
+            }
+        }
+    }
+}
+
+.custom-checkbox {
+    // .custom-control-label {
+    // }
+    .custom-control-label {
+        &:before,
+        &:after {
+            width: $checkboxSize !important;
+            height: $checkboxSize !important;
+        }
+        &:before {
+            border: $main-color solid 1px;
+            border-radius: 0 !important;
+        }
+    }
+
+    .custom-control-input {
+        &:checked {
+            & ~ .custom-control-label::before {
+                border-color: $main-color;
+                background-color: $main-color;
+            }
+        }
+    }
+}
+
+.btn-level {
+    color: $main-color;
+    font-weight: bold;
+    background-color: $light-grey;
+    border: 2px solid #ffffff;
+
+    &.active {
+        background-color: $main-color;
+        color: #ffffff;
+        z-index: 2 !important;
+    }
+}
+
+.progress {
+    background-color: lighten($color: $main-color, $amount: 40%);
+    height: 24px;
+
+    .progress-bar {
+        &.splitter {
+            width: 2px;
+            height: inherit;
+            background-color: #ffffff;
+        }
+
+        &.splitter1 {
+            position: absolute;
+            left: calc(17% + 7px);
+        }
+
+        &.splitter2 {
+            position: absolute;
+            left: calc(32% + 7px);
+        }
+
+        &.splitter3 {
+            position: absolute;
+            left: calc(50%);
+        }
+
+        &.splitter4 {
+            position: absolute;
+            left: calc(65%);
+        }
+
+        &.splitter5 {
+            position: absolute;
+            left: calc(82% - 7px);
+        }
+    }
+}
+
+.mat-expansion-panel-content {
+    font-size: 15px !important;
+}
+
+.mat-expansion-panel-header {
+    background-color: $light-grey;
+    border: 1px solid #ffffff;
+    font-size: 16px !important;
+    font-weight: bold;
+
+    &.mat-expanded,
+    &.mat-expanded:focus,
+    &.mat-expanded:hover {
+        background: $main-color !important;
+
+        .mat-expansion-panel-header-title,
+        .mat-expansion-indicator::after {
+            color: #ffffff !important;
+        }
+    }
+}
+
+.quote-engine-form {
+    // form-controls
+    select,
+    select:focus,
+    select:active {
+        border: 2px solid $main-color !important;
+        font-size: 17px !important;
+        color: $main-color !important;
+    }
+}
+
+// RESPONSIVE OVERRIDES
+@include media-breakpoint-down(sm) {
+    .table-uex {
+        font-size: 13px;
+
+        tbody > tr > td {
+            padding: 7px !important;
+        }
+    }
+
+    .mat-expansion-panel-header {
+        font-size: 14px !important;
+    }
+}

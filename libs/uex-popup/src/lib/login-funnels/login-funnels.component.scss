@@ -1,0 +1,40 @@
+@import '~bootstrap/scss/_functions';
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/_breakpoints';
+
+.logo-container {
+    height: 80px;
+    width: 120px;
+    overflow: hidden;
+    position: relative;
+
+    @include media-breakpoint-down(sm) {
+        height: 50px;
+        width: 90px;
+    }
+
+    .logo {
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+}
+
+.item-link:hover {
+    text-decoration: none !important;
+
+    .text-dark {
+        color: #54b7b6 !important;
+    }
+}
+
+.close {
+    outline: none;
+}

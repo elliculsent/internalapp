@@ -1,0 +1,14 @@
+<h5 class="my-5 font-weight-bold">{{ content.title }}</h5>
+<div class="row mb-100" *ngFor="let item of content.form_controls">
+    <div class="col-12 col-md-6 mb-4" *ngFor="let line of item.lines">
+        <div class="card h-100 mb-3 shadow text-left">
+            <div class="card-header bg-mid-blue text-white font-weight-bold border-bottom border-warning b-b-7px">
+                <span class="d-block py-2">{{ line.title }}</span>
+            </div>
+            <div class="card-body">
+                <p [innerHTML]="line.description">{{ line.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+

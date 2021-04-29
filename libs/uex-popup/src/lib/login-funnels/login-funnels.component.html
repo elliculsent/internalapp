@@ -1,0 +1,31 @@
+<div class="container">
+    <button type="button" class="close" aria-label="Close" mat-dialog-close>
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h1 class="text-center font-weight-bold mb-5" [innerHtml]="data.title"></h1>
+    <div class="row">
+        <div
+            class="col-6 text-center mb-5"
+            [ngClass]="{
+                'col-xs-12': data.items.length === 1,
+                'col-sm-6':
+                    data.items.length === 2 ||
+                    (data.items.length > 4 && data.items.length % 2 === 0),
+                'col-sm-6 col-md-4':
+                    data.items.length === 3 ||
+                    (data.items.length > 4 && data.items.length % 3 === 0),
+                'col-sm-6 col-md-3':
+                    data.items.length === 4 ||
+                    (data.items.length > 4 && data.items.length % 4 === 0)
+            }"
+            *ngFor="let item of data.items"
+        >
+            <a class="item-link" [href]="item.target_link" target="_blank" (click)="close()">
+                <div class="logo-container mb-2">
+                    <img class="logo" [src]="item.logo" [alt]="item.alt_text" />
+                </div>
+                <div class="text-center text-dark">{{ item.desc }}</div>
+            </a>
+        </div>
+    </div>
+</div>

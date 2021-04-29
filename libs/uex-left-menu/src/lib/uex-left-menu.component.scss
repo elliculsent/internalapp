@@ -1,0 +1,45 @@
+.no-bullet {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+        margin-bottom: 20px;
+    }
+}
+
+.user-container {
+    min-height: 15%;
+}
+
+.fa-uex-check-circle-o,
+.fa-uex-circle-o {
+    position: absolute;
+    right: -32px;
+    width: 32px;
+    height: 32px;
+    top: -3px;
+
+    &.submenu {
+        right: -28px;
+        width: 24px;
+        height: 24px;
+        top: -5px;
+    }
+}
+
+.fa-caret-left {
+    position: absolute;
+    right: -38px;
+    top: -12px;
+    width: 32px;
+    height: 32px;
+}
+
+.list-group {
+    margin-bottom: 150px;
+}
+
+.username {
+    position: relative;
+    top: -10px;
+}

@@ -1,0 +1,56 @@
+<div *ngIf="subFlowFields$ | async as fields">
+    <div class="mt-5 mb-5">
+        <h5 class="font-weight-bold">{{ fields.title }}</h5>
+    </div>
+    <form class="quote-engine-form mb-5" [formGroup]="customisationForm">
+        <ng-container *ngIf="familyCompositionFields$ | async as familyCompositionFields">
+            <ng-container *ngFor="let control of familyCompositionFields.controls">
+                <div class="form-group row" *ngIf="control.id === 'personalise_for'">
+                    <div class="col-12 text-center">
+                        <label class="col-form-label d-inline-block pr-3">{{
+                            fields.title_i_want_to_protect
+                        }}</label>
+                        <mat-form-field appearance="fill" [floatLabel]="'never'">
+                            <mat-select class="d-inline-block" [formControlName]="control.id">
+                                <mat-option
+                                    *ngFor="let option of control.options"
+                                    [value]="option.value"
+                                >
+                                    {{ option.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+        <!-- <router-outlet></router-outlet> -->
+    </form>
+    <button
+        type="button"
+        class="btn btn-info text-white mb-4 d-none d-lg-inline"
+        (click)="continue()"
+        [disabled]="customisationForm.invalid"
+    >
+        {{ fields.continue_button_label }}
+    </button>
+</div>
+
+<nav
+    class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar"
+    *ngIf="subFlowFields$ | async as fields"
+>
+    <div class="form-inline m-auto">
+        <button type="button" class="btn btn-outline-warning border-2px" (click)="back()">
+            {{ fields.back_button_label }}
+        </button>
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            [disabled]="customisationForm.invalid"
+            (click)="continue()"
+        >
+            {{ fields.continue_button_label }}
+        </button>
+    </div>
+</nav>

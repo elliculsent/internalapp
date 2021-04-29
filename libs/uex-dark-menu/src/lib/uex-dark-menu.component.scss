@@ -1,0 +1,24 @@
+.dark-sidenav-container {
+    width: 350px;
+    margin-bottom: 70px;
+
+    .logo {
+        position: relative;
+        top: -25px;
+    }
+
+    section {
+        padding: 35px 25px 0 25px;
+
+        .no-bullet {
+            list-style-type: none;
+            padding-left: 0;
+            line-height: 1.8rem;
+        }
+    }
+
+    .fa-uex-bars-white {
+        height: 40px;
+        width: 40px;
+    }
+}

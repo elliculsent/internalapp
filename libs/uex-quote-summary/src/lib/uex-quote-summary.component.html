@@ -1,0 +1,26 @@
+<mat-accordion class="w-100">
+    <mat-expansion-panel class="shadow-none px-0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <i class="fa position-relative top-2px" [class]="quoteSummary?.summary_icon"></i>&nbsp;
+                {{ quoteSummary?.summary_title }}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="container mt-3 px-0">
+            <div class="text-right mb-4">
+                <a href="javascript:void(0);" (click)="edit()">
+                    <i class="fa fa-pencil mt-1"></i>&nbsp;
+                    {{ quoteSummary?.edit_btn_label }}
+                </a>
+            </div>
+            <form class="form-inline summary">
+                <div
+                    *ngFor="let lineContent of summary.content"
+                    class="mb-2 text-center text-uex w-100"
+                    [innerHTML]="safeHtml(lineContent.line)"
+                ></div>
+            </form>
+        </div>
+    </mat-expansion-panel> </mat-accordion
+><br />

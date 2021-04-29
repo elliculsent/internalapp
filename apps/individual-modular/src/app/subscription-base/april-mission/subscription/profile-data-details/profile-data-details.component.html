@@ -1,0 +1,113 @@
+<div class="container text-center col-12 offset-lg-2 col-lg-8 px-0">
+    <h5 class="my-5 font-weight-bold">{{ subFlow.fields.title }}</h5>
+    <form [formGroup]="detailsForm">
+        <ng-container *ngFor="let item of subFlow.fields.form_controls">
+            <ng-container *ngIf="item.type === 'dropdown'">
+                <h5 class="mb-5">{{ item.title }}</h5>
+                <div class="form-row mb-3">
+                    <div class="col mb-3 mb-sm-0">
+                        <input
+                            type="text"
+                            class="form-control border-2px"
+                            matInput
+                            [placeholder]="item.placeholder"
+                            aria-label="Number"
+                            [formControlName]="item.id"
+                            [matAutocomplete]="auto"
+                            [ngClass]="{
+                                'is-invalid':
+                                    detailsForm.get([item.id]).touched &&
+                                    detailsForm.get([item.id]).invalid
+                            }"
+                        />
+
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                            <mat-option *ngFor="let item2 of filteredOptions[item.id] | async" [value]="item2">
+                                {{ item2.name }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="item.type === 'text'">
+                <div class="form-row mb-3">
+                    <div class="col">
+                        <ng-container
+                            class="col-sm-12"
+                            [ngTemplateOutlet]="
+                            item.validation
+                                    ? controlTextMaskTemplate
+                                    : controlTextTemplate
+                            "
+                            [ngTemplateOutletContext]="{$implicit: item}"
+                        >
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-template #controlTextTemplate let-control>
+                <input
+                    type="text"
+                    class="form-control border-2px"
+                    [ngClass]="{
+                        'is-invalid':
+                            detailsForm.get(item.id).touched &&
+                            detailsForm.get(item.id).invalid
+                    }"
+                    [formControlName]="item.id"
+                    [placeholder]="item.placeholder"
+                />
+            </ng-template>
+
+            <ng-template #controlTextMaskTemplate let-control>
+                <input
+                    type="text"
+                    class="form-control border-2px asks"
+                    [ngClass]="{
+                        'is-invalid':
+                            detailsForm.get(item.id).touched &&
+                            detailsForm.get(item.id).invalid
+                    }"
+                    [formControlName]="item.id"
+                    [placeholder]="item.placeholder"
+                    [textMask]="{mask: fieldMasks[item.id]}"
+                />
+            </ng-template>
+
+        </ng-container>
+        <div class="text-left mt-2">
+            <span
+                class="c-pointer text-uex"
+                (click)="openHelptip(subFlow.fields.naf_list_help.id)"
+                >{{ subFlow.fields.naf_list_help.label }}</span
+            >
+        </div>
+
+        <button
+            type="button"
+            class="btn btn-info text-white my-5 d-none d-lg-inline"
+            [disabled]="detailsForm.invalid"
+            (click)="continue()"
+        >
+            {{ subFlow.fields.continue_button_label }}
+        </button>
+    </form>
+</div>
+
+<nav class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar">
+    <div class="form-inline m-auto">
+        <button type="button" class="btn btn-outline-warning border-2px mx-1" (click)="back()">
+            {{ subFlow.fields.back_button_label }}
+        </button>
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white mx-1"
+            [disabled]="detailsForm.invalid"
+            (click)="continue()"
+        >
+            {{ subFlow.fields.continue_button_label }}
+        </button>
+    </div>
+</nav>

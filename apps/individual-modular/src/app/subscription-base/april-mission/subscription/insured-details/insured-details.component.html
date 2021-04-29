@@ -1,0 +1,240 @@
+<div class="container text-center col-12 offset-lg-2 col-lg-8 px-0">
+    <form [formGroup]="insuredDetailsForm">
+        <h5 class="my-5 font-weight-bold">{{ subFlow.title_insured }}</h5>
+        <div class="form-row">
+            <ng-container
+                *ngFor="let control of subFlow.form_controls[0].controls; let last = last"
+            >
+                <div
+                    class="mb-3"
+                    *ngIf="control.type === 'text'"
+                    [ngClass]="
+                        subFlow.form_controls[0].controls.length % 2 !== 0 && last
+                            ? 'col-sm-12'
+                            : 'col-sm-6'
+                    "
+                >
+                    <ng-container
+                        [ngTemplateOutlet]="
+                            control.validation ? controlTextMaskTemplate : controlTextTemplate
+                        "
+                        [ngTemplateOutletContext]="{$implicit: control}"
+                    >
+                    </ng-container>
+                </div>
+                <div
+                    class="mb-3"
+                    *ngIf="control.type === 'phone'"
+                    [ngClass]="
+                        subFlow.form_controls[0].controls.length % 2 !== 0 && last
+                            ? 'col-sm-12'
+                            : 'col-sm-6'
+                    "
+                >
+                    <uex-tel-input
+                        (eGetNumber)="getNumber($event, control.id)"
+                        (eIsValid)="isValidNumber($event, control.id)"
+                        [placeholder]="control.placeholder"
+                        [value]="insuredDetailsForm.get(control.id).value"
+                        [initialCountry]="selectedCountry"
+                    >
+                    </uex-tel-input>
+                </div>
+                <div
+                    class="mb-3"
+                    *ngIf="control.type === 'dropdown'"
+                    [ngClass]="
+                        subFlow.form_controls[0].controls.length % 2 !== 0 && last
+                            ? 'col-sm-12'
+                            : 'col-sm-6'
+                    "
+                >
+                    <ng-container
+                        [ngTemplateOutlet]="dropDownTemplate"
+                        [ngTemplateOutletContext]="{$implicit: control}"
+                    ></ng-container>
+                </div>
+                <div
+                    class="mb-3 input-group"
+                    *ngIf="control.type === 'date'"
+                    [ngClass]="
+                        subFlow.form_controls[0].controls.length % 2 !== 0 && last
+                            ? 'col-sm-12'
+                            : 'col-sm-6'
+                    "
+                >
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+                    <input
+                        type="text"
+                        class="form-control border-2px"
+                        [ngClass]="{
+                            'is-invalid':
+                                insuredDetailsForm.get(control.id).invalid &&
+                                insuredDetailsForm.get(control.id).dirty
+                        }"
+                        [placeholder]="control.placeholder ? control.placeholder : control.format"
+                        angular-mydatepicker
+                        #startDp="angular-mydatepicker"
+                        (click)="startDp.toggleCalendar()"
+                        [options]="dateOptions[control.id]"
+                        [formControlName]="control.id"
+                        readonly
+                    />
+                </div>
+            </ng-container>
+        </div>
+        <h5 class="my-5 font-weight-bold">{{ subFlow.title }}</h5>
+        <div class="form-row">
+            <ng-container
+                *ngFor="let control of subFlow.form_controls[1].controls; let last = last"
+            >
+                <ng-container [ngSwitch]="control.id">
+                    <div class="mb-3 col-sm-12" *ngSwitchCase="'entity_name'">
+                        <ng-container
+                            *ngIf="control.type === 'text'"
+                            [ngTemplateOutlet]="controlTextTemplate"
+                            [ngTemplateOutletContext]="{$implicit: control}"
+                        ></ng-container>
+                    </div>
+                    <div class="mb-3 col-sm-8" *ngSwitchCase="'address_street'">
+                        <input
+                            type="text"
+                            class="form-control border-2px"
+                            [ngClass]="{
+                                'is-invalid':
+                                    insuredDetailsForm.get(control.id).touched &&
+                                    insuredDetailsForm.get(control.id).invalid
+                            }"
+                            [formControlName]="control.id"
+                            [placeholder]="control.placeholder"
+                        />
+                    </div>
+                    <div class="mb-3 col-sm-4" *ngSwitchCase="'address_postcode'">
+                        <input
+                            type="text"
+                            class="form-control border-2px"
+                            [ngClass]="{
+                                'is-invalid':
+                                    insuredDetailsForm.get(control.id).touched &&
+                                    insuredDetailsForm.get(control.id).invalid
+                            }"
+                            [formControlName]="control.id"
+                            [placeholder]="control.placeholder"
+                        />
+                    </div>
+                    <ng-container *ngSwitchDefault>
+                        <div
+                            class="mb-3"
+                            *ngIf="control.type === 'text'"
+                            [ngClass]="
+                                subFlow.form_controls[1].controls.length % 2 !== 0 && last
+                                    ? 'col-sm-12'
+                                    : 'col-sm-6'
+                            "
+                        >
+                            <ng-container
+                                [ngTemplateOutlet]="
+                                    control.validation
+                                        ? controlTextMaskTemplate
+                                        : controlTextTemplate
+                                "
+                                [ngTemplateOutletContext]="{$implicit: control}"
+                            >
+                            </ng-container>
+                        </div>
+                        <div
+                            class="mb-3"
+                            *ngIf="control.type === 'dropdown'"
+                            [ngClass]="
+                                subFlow.form_controls[1].controls.length % 2 !== 0 && last
+                                    ? 'col-sm-6'
+                                    : 'col-sm-12'
+                            "
+                        >
+                            <ng-container
+                                [ngTemplateOutlet]="dropDownTemplate"
+                                [ngTemplateOutletContext]="{$implicit: control}"
+                            ></ng-container>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+        </div>
+
+        <ng-template #controlTextTemplate let-control>
+            <input
+                type="text"
+                class="form-control border-2px"
+                [ngClass]="{
+                    'is-invalid':
+                        insuredDetailsForm.get(control.id).touched &&
+                        insuredDetailsForm.get(control.id).invalid
+                }"
+                [formControlName]="control.id"
+                [placeholder]="control.placeholder"
+            />
+        </ng-template>
+
+        <ng-template #controlTextMaskTemplate let-control>
+            <input
+                type="text"
+                class="form-control border-2px asks"
+                [ngClass]="{
+                    'is-invalid':
+                        insuredDetailsForm.get(control.id).touched &&
+                        insuredDetailsForm.get(control.id).invalid
+                }"
+                [formControlName]="control.id"
+                [placeholder]="control.placeholder"
+                [textMask]="{mask: fieldMasks[control.id]}"
+            />
+        </ng-template>
+
+        <ng-template #dropDownTemplate let-control let-last>
+            <input
+                type="text"
+                class="form-control border-2px"
+                matInput
+                [placeholder]="control.placeholder"
+                aria-label="Number"
+                [formControlName]="control.id"
+                [matAutocomplete]="auto"
+                [ngClass]="{
+                    'is-invalid':
+                        insuredDetailsForm.get(control.id).touched &&
+                        insuredDetailsForm.get(control.id).invalid
+                }"
+            />
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let item of filteredOptions[control.id] | async" [value]="item">
+                    {{ item.name }}
+                </mat-option>
+            </mat-autocomplete>
+        </ng-template>
+    </form>
+    <button
+        type="button"
+        class="btn btn-info text-white my-5 d-none d-lg-inline"
+        [disabled]="insuredDetailsForm.invalid"
+        (click)="continue()"
+    >
+        {{ subFlow.continue_button_label }}
+    </button>
+</div>
+
+<nav class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar">
+    <div class="form-inline m-auto">
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            [disabled]="insuredDetailsForm.invalid"
+            (click)="continue()"
+        >
+            {{ subFlow.continue_button_label }}
+        </button>
+    </div>
+</nav>

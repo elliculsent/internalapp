@@ -1,0 +1,399 @@
+<div
+    class="container text-center col-12 offset-lg-2 col-lg-8 px-0 mb-100"
+    *ngIf="subFlowFields$ | async as subFlow"
+>
+    <form [formGroup]="insuredDetailsForm">
+        <h5 class="my-5 font-weight-bold">{{ subFlow.title }}</h5>
+        <div *ngIf="policyHolderFields$ | async as policyHolderFields" class="form-row">
+            <ng-container *ngFor="let control of policyHolderFields.controls; let last = last">
+                <ng-container [ngSwitch]="control.type">
+                    <div class="mb-3 col-sm-6" *ngSwitchCase="'text'">
+                        <input
+                            *ngIf="!control.validation?.mask"
+                            type="text"
+                            class="form-control border-2px"
+                            [ngClass]="{
+                                'is-invalid':
+                                    insuredDetailsForm.get(control.id).touched &&
+                                    insuredDetailsForm.get(control.id).invalid
+                            }"
+                            [formControlName]="control.id"
+                            [placeholder]="control.placeholder"
+                        />
+                        <input
+                            *ngIf="control.validation?.mask"
+                            type="text"
+                            class="form-control border-2px asks"
+                            [ngClass]="{
+                                'is-invalid':
+                                    insuredDetailsForm.get(control.id).touched &&
+                                    insuredDetailsForm.get(control.id).invalid
+                            }"
+                            [formControlName]="control.id"
+                            [placeholder]="control.placeholder"
+                            [textMask]="{mask: fieldMasks[control.id]}"
+                        />
+                    </div>
+                    <div class="mb-3 col-sm-6" *ngIf="control.type === 'email'">
+                        <input
+                            type="email"
+                            class="form-control border-2px"
+                            [ngClass]="{
+                                'is-invalid':
+                                    insuredDetailsForm.get(control.id).touched &&
+                                    insuredDetailsForm.get(control.id).invalid
+                            }"
+                            [formControlName]="control.id"
+                            [placeholder]="control.placeholder"
+                        />
+                    </div>
+                    <div class="mb-3 col-sm-6" *ngSwitchCase="'dropdown'">
+                        <input
+                            type="text"
+                            class="form-control border-2px"
+                            [ngClass]="{
+                                'is-invalid':
+                                    insuredDetailsForm.get(control.id).touched &&
+                                    insuredDetailsForm.get(control.id).invalid
+                            }"
+                            matInput
+                            [placeholder]="control.placeholder"
+                            aria-label="Number"
+                            [matAutocomplete]="auto"
+                            [formControlName]="control.id"
+                        />
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                            <mat-option
+                                *ngFor="let item of filteredOptions[control.id] | async"
+                                [value]="item"
+                            >
+                                {{ item.name }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </div>
+                    <div class="mb-3 input-group col-sm-6 disabled" *ngSwitchCase="'date'">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                        <input
+                            type="text"
+                            class="form-control border-2px"
+                            [placeholder]="control.placeholder"
+                            angular-mydatepicker
+                            #startDp="angular-mydatepicker"
+                            [options]="dateOptions[control.id]"
+                            [formControlName]="control.id"
+                            readonly
+                        />
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+
+        <div
+            *ngIf="{
+                fields: spouseFields$ | async,
+                count: insuredCount$ | async
+            } as spouseObservables"
+        >
+            <div *ngIf="spouseObservables.fields" [formArrayName]="spouseObservables.fields.id">
+                <h5 class="my-5 font-weight-bold" *ngIf="spouseObservables.count[spouse] > 0">
+                    {{ subFlow.title_insured_dependant }}
+                </h5>
+                <div
+                    class="mb-3"
+                    *ngFor="
+                        let spouseControls of insuredDetailsForm.get(spouseObservables.fields.id)[
+                            'controls'
+                        ];
+                        let i = index
+                    "
+                >
+                    <div class="form-row" [formGroupName]="i">
+                        <ng-container
+                            *ngFor="
+                                let control of spouseObservables.fields.controls;
+                                let last = last
+                            "
+                        >
+                            <ng-container [ngSwitch]="control.type">
+                                <div
+                                    class="mb-3"
+                                    *ngSwitchCase="'text'"
+                                    [ngClass]="
+                                        spouseObservables.fields.controls.length % 2 !== 0 && last
+                                            ? 'col-sm-12'
+                                            : 'col-sm-6'
+                                    "
+                                >
+                                    <input
+                                        *ngIf="!control.validation?.mask"
+                                        type="text"
+                                        class="form-control border-2px"
+                                        [ngClass]="{
+                                            'is-invalid':
+                                                insuredDetailsForm.get([
+                                                    spouseObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).touched &&
+                                                insuredDetailsForm.get([
+                                                    spouseObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).invalid
+                                        }"
+                                        [formControlName]="control.id"
+                                        [placeholder]="control.placeholder"
+                                    />
+                                    <input
+                                        *ngIf="control.validation?.mask"
+                                        type="text"
+                                        class="form-control border-2px"
+                                        [ngClass]="{
+                                            'is-invalid':
+                                                insuredDetailsForm.get([
+                                                    spouseObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).touched &&
+                                                insuredDetailsForm.get([
+                                                    spouseObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).invalid
+                                        }"
+                                        [formControlName]="control.id"
+                                        [placeholder]="control.placeholder"
+                                        [textMask]="{mask: fieldMasks[control.id]}"
+                                    />
+                                </div>
+                                <div
+                                    class="mb-3"
+                                    *ngSwitchCase="'dropdown'"
+                                    [ngClass]="
+                                        spouseObservables.fields.controls.length % 2 !== 0 && last
+                                            ? 'col-sm-12'
+                                            : 'col-sm-6'
+                                    "
+                                >
+                                    <input
+                                        type="text"
+                                        class="form-control border-2px"
+                                        matInput
+                                        [placeholder]="control.placeholder"
+                                        aria-label="Number"
+                                        [ngClass]="{
+                                            'is-invalid':
+                                                insuredDetailsForm.get([
+                                                    spouseObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).touched &&
+                                                insuredDetailsForm.get([
+                                                    spouseObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).invalid
+                                        }"
+                                        [matAutocomplete]="auto"
+                                        [formControlName]="control.id"
+                                    />
+                                    <mat-autocomplete
+                                        #auto="matAutocomplete"
+                                        [displayWith]="displayFn"
+                                    >
+                                        <mat-option
+                                            *ngFor="let item of filteredOptions[control.id] | async"
+                                            [value]="item"
+                                        >
+                                            {{ item.name }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            *ngIf="{
+                fields: childFields$ | async,
+                count: insuredCount$ | async
+            } as childObservables"
+        >
+            <div *ngIf="childObservables.fields" [formArrayName]="childObservables.fields.id">
+                <h5 class="my-5 font-weight-bold" *ngIf="childObservables.count[child] > 0">
+                    {{ subFlow.title_insured_child }}
+                </h5>
+                <div
+                    class="mb-3"
+                    *ngFor="
+                        let childControls of insuredDetailsForm.get(childObservables.fields.id)[
+                            'controls'
+                        ];
+                        let i = index
+                    "
+                >
+                    <div class="form-row" [formGroupName]="i">
+                        <ng-container
+                            *ngFor="
+                                let control of childObservables.fields.controls;
+                                let last = last
+                            "
+                        >
+                            <ng-container [ngSwitch]="control.type">
+                                <div
+                                    class="mb-3"
+                                    *ngSwitchCase="'text'"
+                                    [ngClass]="
+                                        childObservables.fields.controls.length % 2 !== 0 && last
+                                            ? 'col-sm-12'
+                                            : 'col-sm-6'
+                                    "
+                                >
+                                    <input
+                                        *ngIf="!control.validation?.mask"
+                                        type="text"
+                                        class="form-control border-2px"
+                                        [ngClass]="{
+                                            'is-invalid':
+                                                insuredDetailsForm.get([
+                                                    childObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).touched &&
+                                                insuredDetailsForm.get([
+                                                    childObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).invalid
+                                        }"
+                                        [formControlName]="control.id"
+                                        [placeholder]="control.placeholder"
+                                    />
+                                    <input
+                                        *ngIf="control.validation?.mask"
+                                        type="text"
+                                        class="form-control border-2px"
+                                        [ngClass]="{
+                                            'is-invalid':
+                                                insuredDetailsForm.get([
+                                                    childObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).touched &&
+                                                insuredDetailsForm.get([
+                                                    childObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).invalid
+                                        }"
+                                        [formControlName]="control.id"
+                                        [placeholder]="control.placeholder"
+                                        [textMask]="{mask: fieldMasks[control.id]}"
+                                    />
+                                </div>
+                                <div
+                                    class="mb-3"
+                                    *ngSwitchCase="'dropdown'"
+                                    [ngClass]="
+                                        (childObservables.fields.controls.length % 2 !== 0 && last) || control.id == 'insured_benefit'
+                                            ? 'col-sm-12'
+                                            : 'col-sm-6'
+                                    "
+                                >
+                                    <input
+                                        *ngIf="!control.validation?.mask"
+                                        type="text"
+                                        class="form-control border-2px"
+                                        matInput
+                                        [placeholder]="control.placeholder"
+                                        aria-label="Number"
+                                        [ngClass]="{
+                                            'is-invalid':
+                                                insuredDetailsForm.get([
+                                                    childObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).touched &&
+                                                insuredDetailsForm.get([
+                                                    childObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).invalid
+                                        }"
+                                        [matAutocomplete]="auto"
+                                        [formControlName]="control.id"
+                                    />
+                                    <input
+                                        *ngIf="control.validation?.mask"
+                                        type="text"
+                                        class="form-control border-2px"
+                                        matInput
+                                        [placeholder]="control.placeholder"
+                                        aria-label="Number"
+                                        [ngClass]="{
+                                            'is-invalid':
+                                                insuredDetailsForm.get([
+                                                    childObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).touched &&
+                                                insuredDetailsForm.get([
+                                                    childObservables.fields.id,
+                                                    i,
+                                                    control.id
+                                                ]).invalid
+                                        }"
+                                        [matAutocomplete]="auto"
+                                        [formControlName]="control.id"
+                                        [textMask]="{mask: fieldMasks[control.id]}"
+                                    />
+                                    <mat-autocomplete
+                                        #auto="matAutocomplete"
+                                        [displayWith]="displayFn"
+                                    >
+                                        <mat-option
+                                            *ngFor="let item of filteredOptions[control.id] | async"
+                                            [value]="item"
+                                        >
+                                            {{ item.name }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <button
+        type="button"
+        class="btn btn-info text-white my-5 d-none d-lg-inline"
+        [disabled]="insuredDetailsForm.invalid"
+        (click)="continue()"
+    >
+        {{ subFlow.continue_button_label }}
+    </button>
+</div>
+
+<nav
+    class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar"
+    *ngIf="subFlowFields$ | async as subFlow"
+>
+    <div class="form-inline m-auto">
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            [disabled]="insuredDetailsForm.invalid"
+            (click)="continue()"
+        >
+            {{ subFlow.continue_button_label }}
+        </button>
+    </div>
+</nav>

@@ -1,0 +1,20 @@
+.sidenav-container {
+    background: #f8f8f8;
+    width: 350px;
+
+    header {
+        padding: 15px 25px 0px 25px;
+        border-bottom: 1px solid #dadada;
+        background: #f8f8f8;
+
+        h1 {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+
+    section {
+        padding: 35px 25px;
+        background: #ffffff;
+    }
+}

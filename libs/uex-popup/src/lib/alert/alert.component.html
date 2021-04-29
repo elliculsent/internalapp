@@ -1,0 +1,26 @@
+<div class="uex-dialog-container" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-info">
+				<h1 class="modal-title" mat-dialog-title>
+					<i class="fa fa-bell-o"></i> {{ title }}
+				</h1>
+				<button
+					type="button"
+					class="close text-white"
+					aria-label="Close"
+					mat-button
+					mat-dialog-close
+					id="close-btn"
+				>
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<br />
+				<div [innerHTML]="htmlContent"></div>
+				<br />
+			</div>
+		</div>
+	</div>
+</div>

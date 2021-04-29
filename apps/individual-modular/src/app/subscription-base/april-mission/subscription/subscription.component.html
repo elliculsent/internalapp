@@ -1,0 +1,49 @@
+<uex-header
+    (eShowDarkMenu)="eShowDarkMenu()"
+    [config]="headerConfig"
+    [userEmail]="intermediaryName$ | async"
+    [invalidCode]="invalidCode"
+    [intermediaryCode]="intermediaryCode"
+    [readonlyCode]="true"
+></uex-header>
+
+<div class="container-fluid subscription-container h-100">
+    <div class="row h-100">
+        <div class="col-2 col-lg-3 bg-uex px-0 left-menu-container">
+            <div class="position-fixed menu-links d-none d-lg-block">
+                <uex-left-menu [menu]="leftMenuData"></uex-left-menu>
+                <div class="fixed-bottom position-absolute text-center text-white">
+                    <small>{{ poweredByData.powered_by_label }}</small>
+                    <img
+                        [src]="poweredByData.powered_by_logo"
+                        height="40"
+                        [alt]="poweredByData.powered_by_alt_text"
+                    />
+                </div>
+            </div>
+            <div class="d-block d-lg-none">
+                <uex-left-menu [menu]="leftMenuData" [hideMenuItemInMobile]="true"></uex-left-menu>
+                <div class="fixed-bottom position-absolute text-center text-white pb-3">
+                    <img
+                        [src]="poweredByData.powered_by_logo"
+                        height="40"
+                        [alt]="poweredByData.powered_by_alt_text"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="col-10 col-lg-9 fixed-content">
+            <uex-breadcrumb [data]="breadcrumbData"></uex-breadcrumb>
+            <router-outlet></router-outlet>
+            <div
+                class="col-lg-9 offset-lg-3 fixed-bottom text-center d-none d-lg-block pb-3 bg-white"
+            >
+                <hr class="mt-0" />
+                <span *ngFor="let item of footerConfig; let i = index">
+                    <a class="text-uex" [href]="item.link" target="_blank">{{ item.label }}</a>
+                    <span *ngIf="i !== footerConfig.length - 1">&nbsp;-&nbsp;</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

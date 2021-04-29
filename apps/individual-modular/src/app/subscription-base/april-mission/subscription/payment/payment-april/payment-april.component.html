@@ -1,0 +1,25 @@
+<div class="container text-center col-12 offset-lg-2 col-lg-8 px-0">
+    <h5 class="my-5 font-weight-bold">{{ subFlow?.title }}</h5>
+    <p *ngIf="subFlow?.price_display?.price_value">{{ subFlow.price_display.price_value }}</p>
+    <div>
+        {{ subFlow?.content }}
+    </div>
+    <button
+        type="button"
+        class="btn btn-info text-white my-5 d-none d-lg-inline"
+        (click)="continue()"
+    >
+        {{ subFlow?.continue_button_label }}
+    </button>
+</div>
+<nav class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar">
+    <div class="form-inline m-auto">
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            (click)="continue()"
+        >
+            {{ subFlow?.continue_button_label }}
+        </button>
+    </div>
+</nav>

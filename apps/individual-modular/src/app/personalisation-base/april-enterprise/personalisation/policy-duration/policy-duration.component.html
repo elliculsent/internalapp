@@ -1,0 +1,63 @@
+<div
+    class="container text-center col-12 offset-lg-2 col-lg-8 px-0 mb-100"
+    *ngIf="subFlowFields$ | async as fields"
+>
+    <div class="form-group mt-5 mb-5">
+        <h5 class="mb-5 font-weight-bold">{{ fields.title }}</h5>
+        <form id="policyDurationForm" [formGroup]="policyDurationForm">
+            <div class="form-row">
+                <div class="col-sm-6 offset-sm-3 mb-3" *ngFor="let control of fields.form_controls">
+                    <div class="input-group" *ngIf="control.type === 'date'">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" (click)="dp.openCalendar()">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                        <input
+                            type="text"
+                            [name]="control.id"
+                            class="form-control border-2px"
+                            placeholder="DD-MM-YYYY"
+                            angular-mydatepicker
+                            #dp="angular-mydatepicker"
+                            [formControlName]="control.id"
+                            [options]="dateOptions"
+                            [locale]="locale"
+                            (click)="dp.toggleCalendar()"
+                            readonly
+                            id="{{control.id}}"
+                        />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <button
+        type="button"
+        class="btn btn-info text-white mb-4 d-none d-lg-inline"
+        [disabled]="policyDurationForm.invalid"
+        (click)="continue()"
+        id="continueBtn"
+    >
+        {{ fields.continue_button_label }}
+    </button>
+</div>
+
+<nav
+    class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar"
+    *ngIf="subFlowFields$ | async as fields"
+>
+    <div class="form-inline m-auto">
+        <button type="button" class="btn btn-outline-warning border-2px" (click)="back()">
+            {{ fields.back_button_label }}
+        </button>
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            [disabled]="policyDurationForm.invalid"
+            (click)="continue()"
+        >
+            {{ fields.continue_button_label }}
+        </button>
+    </div>
+</nav>

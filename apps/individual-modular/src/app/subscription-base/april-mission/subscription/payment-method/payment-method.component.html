@@ -1,0 +1,211 @@
+<div class="main-container text-center col-12 offset-lg-1 col-lg-10 px-0">
+    <form [formGroup]="paymentForm">
+        <h5 class="my-5 font-weight-bold">{{ subFlow.title }}</h5>
+        <ng-container>
+            <div class="form-row justify-content-center">
+                <ng-container *ngFor="let option of paymentMethodFields.options">
+                    <div
+                        class="col-lg-4"
+                        *ngIf="paymentMethod[durationType].indexOf(option.value) > -1"
+                    >
+                        <button
+                            type="button"
+                            class="btn btn-lg btn-outline-info btn-block py-3 text-hover-white border-2px"
+                            [ngClass]="{
+                                'active text-white':
+                                    paymentForm.get(paymentMethodId).value === option.value
+                            }"
+                            (click)="selectPaymentMethod(option.value, paymentMethodId)"
+                        >
+                            {{ option.name }}
+                        </button>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-container>
+        <div
+            class="text-left mt-2"
+            [ngClass]="{'offset-lg-2': paymentMethod[durationType].length === 2}"
+        >
+            <span
+                class="text-uex c-pointer"
+                (click)="openHelptip(subFlow.payment_method_definitition.id)"
+            >
+                {{ subFlow.payment_method_definitition.title }}
+            </span>
+        </div>
+        <ng-container
+            *ngIf="paymentForm.get(paymentMethodId).valid && durationType === annualContract"
+        >
+            <h5 class="my-5 font-weight-bold">{{ subFlow.title_frequence }}</h5>
+            <div class="container">
+                <div class="form-row mb-3 justify-content-center">
+                    <ng-container *ngFor="let option of paymentFrequencyFields.options">
+                        <div
+                            *ngIf="
+                                paymentFrequency[paymentForm.get(paymentMethodId).value].indexOf(
+                                    option.value
+                                ) > -1
+                            "
+                            class="col-12 col-md-6 col-lg-3 mb-3"
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-outline-info btn-block py-3 text-hover-white border-2px"
+                                [ngClass]="{
+                                    'active text-white':
+                                        paymentForm.get(paymentFrequencyId).value === option.value
+                                }"
+                                (click)="selectPaymentFrequency(option.value, paymentFrequencyId)"
+                            >
+                                {{ option.name }}
+                            </button>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container
+            *ngIf="
+                paymentForm.get(paymentMethodId).value === bankTransfer &&
+                paymentForm.get(paymentFrequencyId).valid
+            "
+        >
+            <h5 class="my-5 font-weight-bold">{{ subFlow.title_bank_details }}</h5>
+            <div class="form-row">
+                <ng-container
+                    *ngFor="let control of bankDetailsFields; let index = index; let last = last"
+                >
+                    <ng-container [ngSwitch]="control.id">
+                        <div
+                            class="mb-3"
+                            [ngClass]="last && index + (1 % 2) !== 0 ? 'col-sm-12' : 'col-sm-6'"
+                            *ngSwitchCase="'bank_iban'"
+                        >
+                            <input
+                                type="text"
+                                class="form-control border-2px"
+                                [ngClass]="{
+                                    'is-invalid':
+                                        paymentForm.get(control.id).touched &&
+                                        paymentForm.get(control.id).invalid
+                                }"
+                                [formControlName]="control.id"
+                                [placeholder]="control.placeholder"
+                                showMask="true"
+                                [textMask]="{mask: ibanMask}"
+                            />
+                        </div>
+                        <div
+                            class="mb-3"
+                            [ngClass]="last && index + (1 % 2) !== 0 ? 'col-sm-12' : 'col-sm-6'"
+                            *ngSwitchCase="'bank_bic'"
+                        >
+                            <input
+                                type="text"
+                                class="form-control border-2px text-uppercase"
+                                [ngClass]="{
+                                    'is-invalid':
+                                        paymentForm.get(control.id).touched &&
+                                        paymentForm.get(control.id).invalid
+                                }"
+                                [formControlName]="control.id"
+                                [placeholder]="control.placeholder"
+                                [value]="paymentForm.get(control.id).value | uppercase"
+                                maxlength="11"
+                            />
+                        </div>
+                        <div
+                            class="mb-3"
+                            [ngClass]="last && index + (1 % 2) !== 0 ? 'col-sm-12' : 'col-sm-6'"
+                            *ngSwitchCase="'sender_address_steet'"
+                        >
+                            <ng-container
+                                [ngTemplateOutlet]="controlTextTemplate"
+                                [ngTemplateOutletContext]="{$implicit: control}"
+                            ></ng-container>
+                        </div>
+                        <div
+                            class="mb-3"
+                            [ngClass]="last && index + (1 % 2) !== 0 ? 'col-sm-12' : 'col-sm-6'"
+                            *ngSwitchCase="'sender_address_country'"
+                        >
+                            <input
+                                type="text"
+                                class="form-control border-2px"
+                                matInput
+                                [formControl]="optionControl"
+                                [placeholder]="control.placeholder"
+                                [matAutocomplete]="auto"
+                                [ngClass]="{
+                                    'is-invalid':
+                                        optionControl.touched && paymentForm.get(control.id).invalid
+                                }"
+                            />
+                            <mat-autocomplete
+                                #auto="matAutocomplete"
+                                [displayWith]="displayFn"
+                                (optionSelected)="
+                                    onBankCountryOptionSelected($event.option.value, control.id)
+                                "
+                            >
+                                <mat-option
+                                    *ngFor="let item of filteredOptions | async"
+                                    [value]="item"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </div>
+                        <div
+                            class="mb-3"
+                            *ngSwitchDefault
+                            [ngClass]="last && index + (1 % 2) !== 0 ? 'col-sm-12' : 'col-sm-6'"
+                        >
+                            <ng-container
+                                [ngTemplateOutlet]="controlTextTemplate"
+                                [ngTemplateOutletContext]="{$implicit: control}"
+                            ></ng-container>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </ng-container>
+        <ng-template #controlTextTemplate let-control>
+            <input
+                type="text"
+                class="form-control border-2px"
+                [ngClass]="{
+                    'is-invalid':
+                        paymentForm.get(control.id).touched && paymentForm.get(control.id).invalid
+                }"
+                [formControlName]="control.id"
+                [placeholder]="control.placeholder"
+            />
+        </ng-template>
+    </form>
+    <button
+        type="button"
+        class="btn btn-info text-white my-5 d-none d-lg-inline"
+        [disabled]="paymentForm.invalid"
+        (click)="continue()"
+    >
+        {{ subFlow.continue_button_label }}
+    </button>
+</div>
+
+<nav class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar">
+    <div class="form-inline m-auto">
+        <button type="button" class="btn btn-outline-warning border-2px mx-1" (click)="back()">
+            {{ subFlow.back_button_label }}
+        </button>
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            [disabled]="paymentForm.invalid"
+            (click)="continue()"
+        >
+            {{ subFlow.continue_button_label }}
+        </button>
+    </div>
+</nav>

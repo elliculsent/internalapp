@@ -1,0 +1,15 @@
+<mat-sidenav-container *ngIf="!isIE">
+    <mat-sidenav #leftsidenav class="position-fixed bg-dark">
+        <uex-dark-menu (eLogin)="login()" (eLogout)="logout()" [isLoggedIn]="isLoggedIn"></uex-dark-menu>
+    </mat-sidenav>
+    <mat-sidenav #rightsidenav position="end" class="position-fixed">
+        <uex-sidenav (eOpenLeadAcquisition)="openLeadAcquisition($event)"></uex-sidenav>
+    </mat-sidenav>
+    <mat-sidenav-content *ngIf="isDataFetched">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<router-outlet *ngIf="isIE"></router-outlet>
+
+<ngx-spinner><p style="font-size: 20px; color: white;">{{ spinnerMessage }}</p></ngx-spinner>

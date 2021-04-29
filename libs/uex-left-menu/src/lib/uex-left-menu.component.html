@@ -1,0 +1,79 @@
+<div class="container mt-4 px-0 px-lg-3 user-container">
+    <div class="text-center p-0 p-lg-2 m-auto" *ngIf="isLoggedIn">
+        <i class="fa fa-3x fa-user-circle-o text-white"></i>&nbsp;
+        <span class="font-weight-bold text-white username">{{ username }}</span>
+    </div>
+    <!-- <hr class="border-white" /> -->
+</div>
+<div class="container mt-5 px-0 px-lg-3">
+    <ul class="no-bullet ml-4 ml-xl-5 fa-ul d-none d-lg-block">
+        <li class="mb-4" *ngFor="let item of menu">
+            <span [ngClass]="{'submenu ml-4': item.menu_type === 'submenu'}" *ngIf="item.show">
+                <i *ngIf="item.icon" class="fa-li fa text-white mr-2" [class]="item.icon"></i>
+                <a
+                    class="text-white text-decoration-none"
+                    *ngIf="item.link_type === 'routerLink'"
+                    [routerLink]="item.link"
+                    >{{ item.label }}</a
+                >
+                <a
+                    class="text-white text-decoration-none"
+                    *ngIf="item.link_type === 'href'"
+                    [href]="getlink(item.link)"
+                    >{{ item.label }}</a
+                >
+                <i
+                    class="float-right"
+                    [ngClass]="{
+                        'fa-uex-check-circle-o': item.is_valid,
+                        'fa-uex-circle-o': !item.is_valid,
+                        'main': item.menu_type === 'main',
+                        'submenu': item.menu_type === 'submenu'
+                    }"
+                    *ngIf="item.active_icon === 'check'"
+                ></i>
+                <i
+                    class="fa fa-3x text-white float-right"
+                    [ngClass]="{'fa-caret-left': item.is_active}"
+                    *ngIf="item.active_icon === 'caret-left'"
+                ></i>
+            </span>
+        </li>
+    </ul>
+    <span *ngIf="!hideMenuInMobile">
+        <ul class="list-group list-group-flush d-block d-lg-none" *ngIf="!hideMenuItemInMobile">
+            <li
+                class="list-group-item border-bottom-0 text-center px-0"
+                *ngFor="let item of menu"
+                [ngClass]="{'bg-white': item.is_active, 'bg-uex': !item.is_active}"
+            >
+                <span *ngIf="item.show">
+                    <a
+                        class="text-white text-decoration-none"
+                        *ngIf="item.link_type === 'routerLink'"
+                        [routerLink]="item.link"
+                    >
+                        <i
+                            *ngIf="item.icon"
+                            class="fa fa-2x"
+                            [class]="item.icon"
+                            [ngClass]="{'text-uex': item.is_active, 'text-white': !item.is_active}"
+                        ></i>
+                    </a>
+                    <a
+                        class="text-white text-decoration-none"
+                        *ngIf="item.link_type === 'href'"
+                        [href]="getlink(item.link)"
+                    >
+                        <i
+                            *ngIf="item.icon"
+                            class="fa fa-2x"
+                            [class]="item.icon"
+                            [ngClass]="{'text-uex': item.is_active, 'text-white': !item.is_active}"
+                        ></i>
+                    </a>
+                </span>
+            </li>
+        </ul>
+    </span>
+</div>

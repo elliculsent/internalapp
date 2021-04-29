@@ -1,0 +1,130 @@
+<mat-accordion class="w-100">
+    <mat-expansion-panel
+        class="shadow-none"
+        *ngFor="let item of coverageDetails; index as i"
+        [expanded]="i === selectedMain"
+        (click)="selectedMain = i"
+    >
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <i class="fa position-relative top-2px" [class]="item.icon"></i>&nbsp;
+                {{ item.title }}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="col px-0 px-sm-3" *ngIf="item.form_controls">
+            <div class="row" *ngFor="let tb of item.form_controls">
+                <table class="table table-uex table-responsive text-left d-table">
+                    <tbody *ngIf="tb.type === 'table-2-col'">
+                        <tr *ngFor="let line of tb.lines">
+                            <td
+                                class="bg-uex-light"
+                                [innerHtml]="line.line"
+                                *ngIf="line.line && !line.value"
+                                colspan="2"
+                            ></td>
+                            <td [innerHtml]="line.line" *ngIf="line.value"></td>
+                            <td [innerHtml]="line.value" *ngIf="line.value"></td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="tb.type === 'table-3-col'">
+                        <tr *ngFor="let line of tb.lines">
+                            <td
+                                class="bg-uex-light"
+                                [innerHtml]="line.line"
+                                *ngIf="!line.description && !line.value"
+                                colspan="3"
+                            ></td>
+                            <td
+                                [innerHtml]="line.line"
+                                *ngIf="!line.description && line.value"
+                                colspan="2"
+                            ></td>
+                            <td
+                                [innerHtml]="line.line"
+                                *ngIf="line.description && !line.value"
+                            ></td>
+                            <td [innerHtml]="line.line" *ngIf="line.description && line.value"></td>
+                            <td
+                                [innerHtml]="line.description"
+                                *ngIf="line.description && !line.value"
+                                colspan="2"
+                            ></td>
+                            <td
+                                [innerHtml]="line.description"
+                                *ngIf="line.description && line.value"
+                            ></td>
+                            <td [innerHtml]="line.value" *ngIf="line.value"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col px-0 px-sm-3 mt-3" *ngIf="item.sub_coverage_details">
+            <mat-accordion class="w-100">
+                <mat-expansion-panel
+                    class="shadow-none"
+                    *ngFor="let subitem of item.sub_coverage_details; index as j"
+                    [expanded]="j === selectedSub"
+                    (click)="selectedSub = j"
+                >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <i class="fa" [class]="subitem.icon"></i>&nbsp;
+                            {{ subitem.title }}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row" *ngFor="let tb of subitem.form_controls">
+                        <table class="table table-uex table-responsive text-left d-table">
+                            <tbody *ngIf="tb.type === 'table-2-col'">
+                                <tr *ngFor="let line of tb.lines">
+                                    <td [innerHtml]="line.line"></td>
+                                    <td
+                                        class="bg-uex-light"
+                                        [innerHtml]="line.line"
+                                        *ngIf="!line.value"
+                                        colspan="2"
+                                    ></td>
+                                    <td [innerHtml]="line.value"></td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="tb.type === 'table-3-col'">
+                                <tr *ngFor="let line of tb.lines">
+                                    <td
+                                        class="bg-uex-light"
+                                        [innerHtml]="line.line"
+                                        *ngIf="!line.description && !line.value"
+                                        colspan="3"
+                                    ></td>
+                                    <td
+                                        [innerHtml]="line.line"
+                                        *ngIf="!line.description && line.value"
+                                        colspan="2"
+                                    ></td>
+                                    <td
+                                        [innerHtml]="line.line"
+                                        *ngIf="line.description && !line.value"
+                                    ></td>
+                                    <td
+                                        [innerHtml]="line.line"
+                                        *ngIf="line.description && line.value"
+                                    ></td>
+                                    <td
+                                        [innerHtml]="line.description"
+                                        *ngIf="line.description && !line.value"
+                                        colspan="2"
+                                    ></td>
+                                    <td
+                                        [innerHtml]="line.description"
+                                        *ngIf="line.description && line.value"
+                                    ></td>
+                                    <td [innerHtml]="line.value" *ngIf="line.value"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

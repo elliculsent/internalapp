@@ -1,0 +1,20 @@
+<div class="col border shadow rounded p-3 p-lg-5 mb-100">
+    <h5 class="mb-5 font-weight-bold">{{ content.title }}</h5>
+    <div class="row px-3 mb-5" *ngFor="let item of content.form_controls">
+        <table class="table table-striped table-borderless table-uex table-responsive text-left">
+            <thead>
+                <tr class="bg-uex text-white">
+                    <th *ngFor="let header of item.header_title">
+                        {{ header?.line_title ? header?.line_title : header?.value_title }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let line of item.lines">
+                    <td [innerHTML]="line.line"></td>
+                    <td [innerHTML]="line.value"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

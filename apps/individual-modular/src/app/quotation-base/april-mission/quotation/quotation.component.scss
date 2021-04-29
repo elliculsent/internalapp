@@ -1,0 +1,15 @@
+.quotation-container {
+    padding-top: 88px;
+
+    .menu-links {
+        height: calc(100vh - 88px);
+        max-width: calc(25% - 15px);
+        width: 100%;
+        left: 10px;
+    }
+
+    .fixed-content {
+        height: 100%;
+        overflow: auto !important;
+    }
+}

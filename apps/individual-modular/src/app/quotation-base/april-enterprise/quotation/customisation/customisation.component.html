@@ -1,0 +1,129 @@
+<div class="container-fluid mb-100">
+    <div class="row">
+        <div class="col-12 col-lg-5 mb-4">
+            <div class="col border rounded shadow p-4">
+                <uex-quote-summary
+                    [quoteSummary]="quoteSummary"
+                    [summary]="summary"
+                    (modify)="modify($event)"
+                ></uex-quote-summary>
+                <uex-offer-customisation
+                    [customisationRestriction]="customisationRestriction"
+                    [offers]="offers"
+                    [offersValue]="offersValue"
+                    (openSideNav)="openSideNav($event)"
+                    (quoteEngineFormChange)="quoteEngineFormChange($event)"
+                ></uex-offer-customisation>
+            </div>
+        </div>
+        <div class="col-12 col-lg-7">
+            <div class="col border rounded shadow py-4">
+                <div class="row mb-4">
+                    <div class="col-12 d-block d-lg-none" *ngIf="isPriceValid">
+                        <div class="row pt-4 text-center" [@heartBeat]="{value: effectState}">
+                            <span class="price text-warning m-auto">
+                                <b
+                                    >{{ priceConfig.monthly_price_value | number: '1.2-2'
+                                    }}{{ priceConfig.currency_symbole }}</b
+                                >
+                                <span class="duration text-body"
+                                    >&nbsp;/{{ priceConfig.per_month_label }}</span
+                                >
+                            </span>
+                        </div>
+                        <div class="row">
+                            <div class="m-auto">
+                                <span>{{ priceConfig.help_tip_label }}</span
+                                >&nbsp;
+                                <i
+                                    class="fa fa-info-circle c-pointer text-muted"
+                                    (click)="openSideNav(priceConfig.help_tips)"
+                                ></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 d-block d-lg-none" *ngIf="!isPriceValid">
+                        <div class="row">
+                            <div class="m-auto text-center pt-4">
+                                <div class="text-warning font-weight-bold px-3">
+                                    Veuillez modifier votre choix de garantie
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-8">
+                        <div
+                            class="row my-3"
+                            *ngFor="let offer of offersConfig.customisation_builder_score"
+                        >
+                            <div class="col-5 text-center">
+                                {{ offer.label }}
+                            </div>
+                            <div class="col-7">
+                                <div class="progress">
+                                    <div
+                                        class="progress-bar bg-info"
+                                        [ngStyle]="{width: offer.bar_description}"
+                                    ></div>
+                                    <div class="progress-bar splitter splitter1"></div>
+                                    <div class="progress-bar splitter splitter2"></div>
+                                    <div class="progress-bar splitter splitter3"></div>
+                                    <div class="progress-bar splitter splitter4"></div>
+                                    <div class="progress-bar splitter splitter5"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-5 col-xl-2 text-center">
+                        <img
+                            class="partner-logo"
+                            height="110"
+                            [src]="priceConfig.logo"
+                        />
+                    </div> -->
+
+                    <div class="col-lg-4 d-none d-lg-block" *ngIf="isPriceValid">
+                        <div class="row pt-4 text-center" [@heartBeat]="{value: effectState}">
+                            <span class="price text-warning m-auto">
+                                <b
+                                    >{{ priceConfig.monthly_price_value | number: '1.2-2'
+                                    }}{{ priceConfig.currency_symbole }}</b
+                                >
+                                <span class="duration text-body"
+                                    >&nbsp;/{{ priceConfig.per_month_label }}</span
+                                >
+                            </span>
+                        </div>
+                        <div class="row">
+                            <div class="m-auto">
+                                <span>{{ priceConfig.help_tip_label }}</span
+                                >&nbsp;
+                                <i
+                                    class="fa fa-info-circle c-pointer text-muted"
+                                    (click)="openSideNav(priceConfig.help_tips)"
+                                ></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 d-none d-lg-block" *ngIf="!isPriceValid">
+                        <div class="row">
+                            <div class="m-auto text-center pt-4">
+                                <div class="text-warning font-weight-bold px-3">
+                                    Veuillez modifier votre choix de garantie
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row px-3 coverage-details">
+                    <uex-coverage-details
+                        [coverageDetails]="coverageDetails"
+                        [helpTips]="helpTips"
+                        (eHelptip)="openSideNav($event)"
+                    ></uex-coverage-details>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="container text-center col-12 offset-lg-2 col-lg-8 px-0">
+    <h5 class="my-5 font-weight-bold">{{ subFlow.title }}</h5>
+    <div class="mb-4">
+        {{ subFlow.description }}
+        {{ subFlow.description_country_list }}
+    </div>
+    <form [formGroup]="countriesCoveredForm">
+        <div class="form-row">
+            <ng-container *ngFor="let control of subFlow.form_controls">
+                <ng-container *ngIf="control.type == 'radio-button'">
+                    <div class="col-sm-6 mb-3 mb-sm-0" *ngFor="let option of control.options">
+                        <button
+                            type="button"
+                            class="btn btn-lg btn-outline-info btn-block py-3 text-hover-white border-2px"
+                            [ngClass]="{
+                                ' active text-white':
+                                    countriesCoveredForm.get([control.id]).value === option.value
+                            }"
+                            (click)="selectRadioButton(control.id, option.value)"
+                        >
+                            {{ option.name }}
+                        </button>
+                    </div>
+                    <div class="text-left mt-2">
+                        <span
+                            class="text-uex c-pointer"
+                            (click)="openHelptip(subFlow.country_coverage_help_tips.id)"
+                            >{{ subFlow.country_coverage_help_tips.label }}</span
+                        >
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+    </form>
+    <button
+        type="button"
+        class="btn btn-info text-white my-5 d-none d-lg-inline"
+        [disabled]="countriesCoveredForm.invalid"
+        (click)="continue()"
+    >
+        {{ subFlow.continue_button_label }}
+    </button>
+</div>
+
+<nav class="navbar fixed-bottom navbar-light bg-white border-top d-lg-none mobile-navbar">
+    <div class="form-inline m-auto">
+        <button type="button" class="btn btn-outline-warning border-2px" (click)="back()">
+            {{ subFlow.back_button_label }}
+        </button>
+        <button
+            type="button"
+            class="btn btn-warning border-2px text-white ml-2"
+            [disabled]="countriesCoveredForm.invalid"
+            (click)="continue()"
+        >
+            {{ subFlow.continue_button_label }}
+        </button>
+    </div>
+</nav>
